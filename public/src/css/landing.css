@@ -1,0 +1,52 @@
+:root {
+    --banner-image-border-radius: 5rem;
+}
+#banner {
+    height: 85vh;
+    background: url("https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/hero-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-end-end-radius: var(--banner-image-border-radius);
+    border-end-start-radius: var(--banner-image-border-radius);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+#features .active {
+    color: var(--accent-color) !important;
+}
+
+
+#featured_products_list img {
+    height: 15rem;
+    object-fit:contain;
+    padding: 1rem;
+}
+
+#featured_products .card-title {
+    min-height: 4rem;
+}
+
+
+#interested_banner {
+    height: 85vh;
+    background: url("https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/CTA-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    padding-top: 10rem;
+}
+
+
+@media only screen and (max-width: 992px) {
+    #banner {
+        height: 50vh;
+    }
+}

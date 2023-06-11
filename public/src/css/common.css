@@ -1,0 +1,52 @@
+:root {
+    --primary-color: #f8f5f4;
+    --accent-color: #ff7a3d;
+
+    --navbar-text-color: var(--bs-nav-link-color);
+}
+.witespace-1 {
+    height: 1rem;
+}
+.witespace-2 {
+    height: 2rem;
+}
+.witespace-3 {
+    height: 3rem;
+}
+.witespace-4 {
+    height: 4rem;
+}
+.witespace-5 {
+    height: 5rem;
+}
+
+body {
+    background-color: var(--primary-color);
+}
+
+nav {
+    background-image: linear-gradient(180deg, var(--primary-color), var(--primary-color));
+}
+.cover-nav {
+    position: absolute !important;
+    background-image: linear-gradient(180deg, var(--primary-color), transparent);
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+nav .active {
+    color: var(--accent-color) !important;
+}
+
+nav a {
+    color: var(--navbar-text-color);
+}
+
+.primary-btn {
+    background-color: var(--accent-color);
+    border-radius: 5rem;
+    color: var(--primary-color);
+    text-transform: lowercase;
+    font-variant: small-caps;
+}
