@@ -9,7 +9,7 @@
 
 #product img {
     max-height: 30rem;
-    object-fit:contain;
+    object-fit: contain;
 }
 
 #description_review .nav button {
@@ -22,7 +22,7 @@
 
 #related_products .products img {
     height: 10rem;
-    object-fit:contain;
+    object-fit: contain;
     padding: 1rem;
 }
 

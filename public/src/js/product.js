@@ -8,35 +8,32 @@ if (!product_id || !parseInt(product_id) || parseInt(product_id) > 20 || parseIn
     window.location = '/'
 }
 
-
-fetch(`https://fakestoreapi.com/products/${product_id}`)
-.then((res) => res.json())
-.then((json) => {
-    document.querySelector("#description").textContent = json.description
+function render_product(product) {
+    document.querySelector("#description").textContent = product.description
 
     const productEl = document.createElement("div")
     productEl.classList.add("row")
     productEl.innerHTML = `
     <div class="col-lg-6 d-flex justify-content-center">
-        <img src="${json.image}" alt="image" class="img-fluid">
+        <img src="${product.image}" alt="image" class="img-fluid">
     </div>
     <div class="col-lg-6">
-        <a href="/products/?category=${json.category == 'electronics' ? 1 : json.category == 'jewelery' ? 2 : 3}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
-            ${json.category}
+        <a href="/products/?category=${product.category == 'electronics' ? 1 : product.category == 'jewelery' ? 2 : 3}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
+            ${product.category}
         </a>
         <h3 class="card-title mt-2">
-            ${json.title}
+            ${product.title}
         </h3>
         <p> 
-            <i class="bi bi-star${json.rating.rate >= 1 ? '-fill' : json.rating.rate >= 0.5 ? '-half' : ''}"></i>
-            <i class="bi bi-star${json.rating.rate >= 2 ? '-fill' : json.rating.rate >= 1.5 ? '-half' : ''}"></i>
-            <i class="bi bi-star${json.rating.rate >= 3 ? '-fill' : json.rating.rate >= 2.5 ? '-half' : ''}"></i>
-            <i class="bi bi-star${json.rating.rate >= 4 ? '-fill' : json.rating.rate >= 3.5 ? '-half' : ''}"></i>
-            <i class="bi bi-star${json.rating.rate >= 5 ? '-fill' : json.rating.rate >= 4.5 ? '-half' : ''}"></i>
-            ${json.rating.rate}
+            <i class="bi bi-star${product.rating.rate >= 1 ? '-fill' : product.rating.rate >= 0.5 ? '-half' : ''}"></i>
+            <i class="bi bi-star${product.rating.rate >= 2 ? '-fill' : product.rating.rate >= 1.5 ? '-half' : ''}"></i>
+            <i class="bi bi-star${product.rating.rate >= 3 ? '-fill' : product.rating.rate >= 2.5 ? '-half' : ''}"></i>
+            <i class="bi bi-star${product.rating.rate >= 4 ? '-fill' : product.rating.rate >= 3.5 ? '-half' : ''}"></i>
+            <i class="bi bi-star${product.rating.rate >= 5 ? '-fill' : product.rating.rate >= 4.5 ? '-half' : ''}"></i>
+            ${product.rating.rate}
         </p>
-        <p class="fs-3 fw-bold mt-3">$${json.price}</p>
-        <p class="mt-3">${json.description}</p>
+        <p class="fs-3 fw-bold mt-3">$${product.price}</p>
+        <p class="mt-3">${product.description}</p>
         <form id="add_to_cart_form" method="post" action="#">
             <div class="row">
                 <div class="col-4 col-xl-2">
@@ -48,8 +45,8 @@ fetch(`https://fakestoreapi.com/products/${product_id}`)
         <hr>
         <p>
             Category:
-            <a href="/products/?category=${json.category == 'electronics' ? 1 : json.category == 'jewelery' ? 2 : 3}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
-                ${json.category}
+            <a href="/products/?category=${product.category == 'electronics' ? 1 : product.category == 'jewelery' ? 2 : 3}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
+                ${product.category}
             </a>
         </p>
     </div>
@@ -60,7 +57,19 @@ fetch(`https://fakestoreapi.com/products/${product_id}`)
         e.preventDefault()
         alert(document.querySelector("#quantity").value)
     })
-})
+}
+
+
+if (localStorage.getItem("products")) {
+    render_product(JSON.parse(localStorage.getItem("products")).filter((p) => p.id == product_id)[0])
+} else {
+    fetch(`https://fakestoreapi.com/products`)
+    .then((res) => res.json())
+    .then((json) => {
+        localStorage.setItem(`products`, JSON.stringify(json))
+        render_product(json.filter((p) => p.id == product_id)[0])
+    })
+}
 
 
 const stars = document.querySelectorAll("#review_rate_inp i")
@@ -101,15 +110,13 @@ document.querySelector("#review_form").addEventListener("submit", (e) => {
 })
 
 
-fetch('https://fakestoreapi.com/products')
-.then((res) => res.json())
-.then((json) => {
+function render_related_products(products) {
     const related_products_list = document.querySelector("#related_products .products")
 
-    json.reverse()
-    let s = Math.floor(Math.random() * (json.length - 4))
-    json = json.slice(s, s + 2 + Math.floor(Math.random() * 2))
-    json.forEach(element => {
+    products = products.filter((p) => p.id != product_id)
+    let s = Math.floor(Math.random() * (products.length - 4))
+    products = products.slice(s, s + 2 + Math.floor(Math.random() * 2))
+    products.forEach(element => {
         const productEl = document.createElement("div")
 
         productEl.classList.add("card")
@@ -143,4 +150,15 @@ fetch('https://fakestoreapi.com/products')
         `
         related_products_list.appendChild(productEl)
     });
-})
+}
+
+if (localStorage.getItem("products")) {
+    render_related_products(JSON.parse(localStorage.getItem("products")))
+} else {
+    fetch('https://fakestoreapi.com/products')
+    .then((res) => res.json())
+    .then((json) => {
+        localStorage.setItem("products", JSON.stringify(json))
+        render_related_products(json)
+    })
+}

@@ -24,7 +24,7 @@
 
 #featured_products_list img {
     height: 15rem;
-    object-fit:contain;
+    object-fit: contain;
     padding: 1rem;
 }
 

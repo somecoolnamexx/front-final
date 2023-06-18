@@ -6,13 +6,10 @@ document.querySelectorAll("#navbarSupportedContent ul li a").forEach((a) => {
     };
 })
 
-
-fetch('https://fakestoreapi.com/products')
-.then((res) => res.json())
-.then( (json) => {
-    json.reverse()
-    json = json.slice(0, 10)
-    json.forEach(element => {
+function render_products(products) {
+    products.reverse()
+    products = products.slice(0, 10)
+    products.forEach(element => {
         const productEl = document.createElement("div")
 
         productEl.classList.add("card")
@@ -39,4 +36,16 @@ fetch('https://fakestoreapi.com/products')
         `
         featured_products_list.appendChild(productEl)
     });
-})
+}
+
+if (localStorage.getItem("products")) {
+    render_products(JSON.parse(localStorage.getItem("products")))
+} else {
+    fetch('https://fakestoreapi.com/products')
+    .then((res) => res.json())
+    .then((json) => {
+        localStorage.setItem("products", JSON.stringify(json))
+        render_products(json)
+    })
+}
+
