@@ -41,6 +41,7 @@ function render_product(product) {
                 </div>
                 <button type="submit" class="btn primary-btn col-5 ms-3" >Add To Cart</button>
             </div>
+            <div id="add_to_cart_form_error" class="text-danger"></div>
         </form>
         <hr>
         <p>
@@ -55,7 +56,19 @@ function render_product(product) {
 
     document.querySelector("#add_to_cart_form").addEventListener("submit", (e) => {
         e.preventDefault()
-        alert(document.querySelector("#quantity").value)
+        const quantity = document.querySelector("#quantity").value 
+        if (!quantity || !parseInt(quantity) || parseInt(quantity) > 100 || parseInt(quantity) < 1) {
+            document.querySelector("#add_to_cart_form_error").textContent = "Quantity must be between 1 and 99"
+        } else {
+            document.querySelector("#add_to_cart_form_error").textContent = ""
+            let cart = JSON.parse(localStorage.getItem("cart"))
+            cart.push({
+                quantity: parseInt(quantity),
+                product: product
+            })
+            localStorage.setItem("cart", JSON.stringify(cart))
+            refresh_nav_cart()
+        }
     })
 }
 
@@ -106,10 +119,10 @@ if (localStorage.getItem("products")) {
     render_product(JSON.parse(localStorage.getItem("products")).filter((p) => p.id == product_id)[0])
     render_related_products(JSON.parse(localStorage.getItem("products")))
 } else {
-    fetch(`https://fakestoreapi.com/products`)
+    fetch('https://fakestoreapi.com/products')
     .then((res) => res.json())
     .then((json) => {
-        localStorage.setItem(`products`, JSON.stringify(json))
+        localStorage.setItem("products", JSON.stringify(json))
         render_product(json.filter((p) => p.id == product_id)[0])
         render_related_products(json)
     })

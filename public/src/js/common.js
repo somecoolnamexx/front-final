@@ -2,10 +2,12 @@ const body = document.querySelector("body")
 const navbar = document.createElement("nav")
 const footer = document.createElement("footer")
 
-const settings = {
-    name: "magazia",
-    cart_items: 1,
-    categories: [
+if (!localStorage.getItem("cart")) {
+    localStorage.setItem("cart", JSON.stringify([]))
+}
+
+if (!localStorage.getItem("categories")) {
+    localStorage.setItem("categories", JSON.stringify([
         {
             id: 1,
             name: "electronics"
@@ -22,7 +24,13 @@ const settings = {
             id: 4,
             name: "women's clothing"
         }
-    ]
+    ]))
+}
+
+
+const settings = {
+    name: "magazia",
+    categories: JSON.parse(localStorage.getItem("categories"))
 }
 
 let categories_dropdown = ''
@@ -32,6 +40,10 @@ settings.categories.forEach((element) => {
     <li><a class="dropdown-item hover-color-active" href="/products/?category=${element.id}">${element.name}</a></li>
     `
 })
+
+function refresh_nav_cart() {
+    document.querySelector("#nav-cart-items").textContent = JSON.parse(localStorage.getItem("cart")).length
+}
 
 
 navbar.classList.add("navbar")
@@ -71,10 +83,7 @@ navbar.innerHTML = `
                 <div class="nav-link">
                 <a class="text-decoration-none position-relative pe-3 active" href="/cart">
                     Cart <i class="bi bi-cart"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        ${settings.cart_items}
-                        <span class="visually-hidden">cart items</span>
-                    </span>
+                    <span id="nav-cart-items" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
                 </a>
                 </div>
             </li>
@@ -124,3 +133,4 @@ footer.innerHTML = `
 
 body.insertBefore(navbar, body.firstChild)
 body.insertBefore(footer, document.querySelector("body script"))
+refresh_nav_cart()
