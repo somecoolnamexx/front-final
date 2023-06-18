@@ -10,6 +10,7 @@ if (!product_id || !parseInt(product_id) || parseInt(product_id) > 20 || parseIn
 
 function render_product(product) {
     document.querySelector("#description").textContent = product.description
+    document.querySelector("#q_product_name").textContent = product.title.length > 40 ? product.title.slice(0, 37) + '...' : product.title
 
     const productEl = document.createElement("div")
     productEl.classList.add("row")
@@ -68,6 +69,7 @@ function render_product(product) {
             })
             localStorage.setItem("cart", JSON.stringify(cart))
             refresh_nav_cart()
+            document.querySelector("#add_to_cart_success").classList.remove("d-none")
         }
     })
 }
