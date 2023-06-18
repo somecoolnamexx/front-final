@@ -25,7 +25,9 @@ if (category_id && (!parseInt(category_id) || parseInt(category_id) > 4 || parse
     document.querySelector("#category_list").appendChild(clearCategoryEl)
 }
 document.querySelector('#search_inp').value = q ? q : ''
-document.querySelector('#search_clear').classList.remove(q ? 'd-none' : '.')
+if (document.querySelector('#search_clear') && q) {
+    document.querySelector('#search_clear').classList.remove('d-none')
+}
 
 
 document.querySelector('#search_clear').addEventListener("click", (e) => {
@@ -81,7 +83,6 @@ function render_products(products) {
     const related_products_list = document.querySelector("#products .products")
 
     if (category_id) {
-        console.log( get_category_name(category_id));
         products = products.filter((p) => p.category ==  get_category_name(category_id))
     }
     
