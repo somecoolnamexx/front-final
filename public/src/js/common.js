@@ -45,6 +45,16 @@ function refresh_nav_cart() {
     document.querySelector("#nav-cart-items").textContent = JSON.parse(localStorage.getItem("cart")).length
 }
 
+function get_category_id(name) {
+    const category = settings.categories.filter((c) => c.name == name)[0]
+    return category ? category.id : 1
+}
+
+function get_category_name(id) {
+    const category = settings.categories.filter((c) => c.id == id)[0]
+    return category ? category.name : settings.categories[0].name
+}
+
 
 navbar.classList.add("navbar")
 navbar.classList.add("navbar-expand-lg")

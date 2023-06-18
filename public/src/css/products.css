@@ -1,0 +1,9 @@
+#products .products img {
+    height: 10rem;
+    object-fit: contain;
+    padding: 1rem;
+}
+
+#products .products .card-title {
+    min-height: 5rem;
+}
