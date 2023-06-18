@@ -19,7 +19,7 @@ function render_product(product) {
         <img src="${product.image}" alt="image" class="img-fluid">
     </div>
     <div class="col-lg-6">
-        <a href="/products/?category=${product.category == 'electronics' ? 1 : product.category == 'jewelery' ? 2 : 3}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
+        <a href="/products/?category=${get_category_id(product.category)}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
             ${product.category}
         </a>
         <h3 class="card-title mt-2">
@@ -47,7 +47,7 @@ function render_product(product) {
         <hr>
         <p>
             Category:
-            <a href="/products/?category=${product.category == 'electronics' ? 1 : product.category == 'jewelery' ? 2 : 3}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
+            <a href="/products/?category=${get_category_id(product.category)}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
                 ${product.category}
             </a>
         </p>
@@ -93,7 +93,7 @@ function render_related_products(products) {
         productEl.innerHTML = `
             <img src="${element.image}" class="card-img-top" alt="image">
             <div class="card-body">
-                <a href="/products/?category=${element.category == 'electronics' ? 1 : element.category == 'jewelery' ? 2 : 3}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
+                <a href="/products/?category=${get_category_id(element.category)}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
                     ${element.category}
                 </a>
                 <h6 class="card-title mt-1">
