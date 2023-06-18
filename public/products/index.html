@@ -33,7 +33,11 @@
     <main id="content" class="container row mx-auto my-5">
         <div class="col-sm-4 col-lg-3">
             <form id="search_form" method="post" action="#" class="bg-white py-4 px-4 px-sm-2 px-xl-4">
-                <input id="search_inp" type="text" class="form-control" placeholder="Search">
+                <div class="input-group">
+                    <input id="search_inp" type="text" class="form-control border border-secondary-subtle focus-ring focus-ring-secondary" placeholder="Search" aria-label="Search" aria-describedby="search_btn">
+                    <button class="btn primary-btn rounded-end-2" type="submit" id="search_btn">Search</button>
+                </div>
+                <div id="search_clear" class="d-none mt-2 hover-color-active" role="button">clear search</div>
             </form>
             <div class="bg-white py-4 px-4 px-sm-2 px-xl-4 mt-3">
                 <p class="fs-4 mb-2">Category</p>

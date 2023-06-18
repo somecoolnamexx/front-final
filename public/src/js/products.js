@@ -7,8 +7,31 @@ const q = urlParams.get('q')
 
 if (category_id && (!parseInt(category_id) || parseInt(category_id) > 4 || parseInt(category_id) < 1)) {
     window.location.search = q ? `q=${q}` : ''
+} else {
+    const clearCategoryEl = document.createElement("li")
+    clearCategoryEl.classList.add("nav-item")
+    clearCategoryEl.innerHTML = `
+    <a href="?category=0" class="nav-link p-0 text-dark hover-color-active d-flex justify-content-between">
+        <span>all category</span>
+        <span id="category_0_quantity">()</span>
+    </a>
+    `
+    clearCategoryEl.querySelector('a').addEventListener("click", (e) => {
+        e.preventDefault()
+        urlParams.set("category", 0)
+        window.location.search = urlParams.toString()
+    });
+    
+    document.querySelector("#category_list").appendChild(clearCategoryEl)
 }
 document.querySelector('#search_inp').value = q ? q : ''
+document.querySelector('#search_clear').classList.remove(q ? 'd-none' : '.')
+
+
+document.querySelector('#search_clear').addEventListener("click", (e) => {
+    urlParams.delete("q")
+    window.location.search = urlParams.toString()
+})
 
 
 const categories = JSON.parse(localStorage.getItem("categories"))
@@ -44,6 +67,7 @@ function render_category_quantities(products) {
         })
         document.querySelector(`#category_${c.id}_quantity`).textContent = `(${count})`
     })
+    document.querySelector(`#category_0_quantity`).textContent = `(${products.length})`
 }
 
 document.querySelector('#search_form').addEventListener("submit", (e) => {
