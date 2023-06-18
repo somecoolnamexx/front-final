@@ -6,13 +6,10 @@ document.querySelectorAll("#navbarSupportedContent ul li a").forEach((a) => {
     };
 })
 
-
-fetch('https://fakestoreapi.com/products')
-.then((res) => res.json())
-.then( (json) => {
-    json.reverse()
-    json = json.slice(0, 10)
-    json.forEach(element => {
+function render_products(products) {
+    products.reverse()
+    products = products.slice(0, 10)
+    products.forEach(element => {
         const productEl = document.createElement("div")
 
         productEl.classList.add("card")
@@ -25,7 +22,7 @@ fetch('https://fakestoreapi.com/products')
         productEl.innerHTML = `
             <img src="${element.image}" class="card-img-top" alt="image">
             <div class="card-body">
-                <h6 class="card-title">${element.title.length > 50 ? element.title.slice(0, 47) + '...' : element.title}</h5>
+                <h6 class="card-title">${element.title.length > 50 ? element.title.slice(0, 47) + '...' : element.title}</h6>
                 <p class="card-text"> 
                     <i class="bi bi-star${element.rating.rate >= 1 ? '-fill' : element.rating.rate >= 0.5 ? '-half' : ''}"></i>
                     <i class="bi bi-star${element.rating.rate >= 2 ? '-fill' : element.rating.rate >= 1.5 ? '-half' : ''}"></i>
@@ -34,9 +31,21 @@ fetch('https://fakestoreapi.com/products')
                     <i class="bi bi-star${element.rating.rate >= 5 ? '-fill' : element.rating.rate >= 4.5 ? '-half' : ''}"></i>
                     ${element.rating.rate}
                 </p>
-                <a href="/product?id=${element.id}" class="btn primary-btn">See product</a>
+                <a href="/product/?id=${element.id}" class="btn primary-btn">See product</a>
             </div>
         `
         featured_products_list.appendChild(productEl)
     });
-})
+}
+
+if (localStorage.getItem("products")) {
+    render_products(JSON.parse(localStorage.getItem("products")))
+} else {
+    fetch('https://fakestoreapi.com/products')
+    .then((res) => res.json())
+    .then((json) => {
+        localStorage.setItem("products", JSON.stringify(json))
+        render_products(json)
+    })
+}
+
