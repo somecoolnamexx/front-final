@@ -59,57 +59,6 @@ function render_product(product) {
     })
 }
 
-
-if (localStorage.getItem("products")) {
-    render_product(JSON.parse(localStorage.getItem("products")).filter((p) => p.id == product_id)[0])
-} else {
-    fetch(`https://fakestoreapi.com/products`)
-    .then((res) => res.json())
-    .then((json) => {
-        localStorage.setItem(`products`, JSON.stringify(json))
-        render_product(json.filter((p) => p.id == product_id)[0])
-    })
-}
-
-
-const stars = document.querySelectorAll("#review_rate_inp i")
-
-stars.forEach((i) => {
-    i.addEventListener("click", (e) => {
-        let fill = true
-        stars.forEach((j) => {
-            if (fill) {
-                j.classList.remove("bi-star")
-                j.classList.add("bi-star-fill")
-            } else {
-                j.classList.remove("bi-star-fill")
-                j.classList.add("bi-star")
-            }
-            if (i === j) {
-                fill = false
-            }
-        })
-    })
-})
-
-
-document.querySelector("#review_form").addEventListener("submit", (e) => {
-    e.preventDefault()
-    if (!document.querySelector("#review_rate_inp .bi-star-fill")) {
-        alert("Please select a rating")
-    } else if (
-            document.querySelector("#review_review_inp").value && 
-            document.querySelector("#review_name_inp").value && 
-            document.querySelector("#review_email_inp").value
-        ) {
-        alert("Your review is send")
-        location.reload()
-    } else {
-        alert("Please fill all data")
-    }
-})
-
-
 function render_related_products(products) {
     const related_products_list = document.querySelector("#related_products .products")
 
@@ -152,13 +101,55 @@ function render_related_products(products) {
     });
 }
 
+
 if (localStorage.getItem("products")) {
+    render_product(JSON.parse(localStorage.getItem("products")).filter((p) => p.id == product_id)[0])
     render_related_products(JSON.parse(localStorage.getItem("products")))
 } else {
-    fetch('https://fakestoreapi.com/products')
+    fetch(`https://fakestoreapi.com/products`)
     .then((res) => res.json())
     .then((json) => {
-        localStorage.setItem("products", JSON.stringify(json))
+        localStorage.setItem(`products`, JSON.stringify(json))
+        render_product(json.filter((p) => p.id == product_id)[0])
         render_related_products(json)
     })
 }
+
+
+const stars = document.querySelectorAll("#review_rate_inp i")
+
+stars.forEach((i) => {
+    i.addEventListener("click", (e) => {
+        let fill = true
+        stars.forEach((j) => {
+            if (fill) {
+                j.classList.remove("bi-star")
+                j.classList.add("bi-star-fill")
+            } else {
+                j.classList.remove("bi-star-fill")
+                j.classList.add("bi-star")
+            }
+            if (i === j) {
+                fill = false
+            }
+        })
+    })
+})
+
+
+document.querySelector("#review_form").addEventListener("submit", (e) => {
+    e.preventDefault()
+    if (!document.querySelector("#review_rate_inp .bi-star-fill")) {
+        alert("Please select a rating")
+    } else if (
+            document.querySelector("#review_review_inp").value && 
+            document.querySelector("#review_name_inp").value && 
+            document.querySelector("#review_email_inp").value
+        ) {
+        alert("Your review is send")
+        location.reload()
+    } else {
+        alert("Please fill all data")
+    }
+})
+
