@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>magazia - davit chinchaladze</title>
+    <meta name="title" content="magazia - davit chinchaladze">
+    <meta name="description" content="jer saxeli ver movifiqre, amitom iyos ase.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://front-final-datotoda.web.app/">
+    <meta property="og:title" content="magazia - davit chinchaladze">
+    <meta property="og:description" content="jer saxeli ver movifiqre, amitom iyos ase.">
+    <meta property="og:image" content="https://picsum.photos/id/392/5000/3333">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://front-final-datotoda.web.app/">
+    <meta property="twitter:title" content="magazia - davit chinchaladze">
+    <meta property="twitter:description" content="jer saxeli ver movifiqre, amitom iyos ase.">
+    <meta property="twitter:image" content="https://picsum.photos/id/392/5000/3333">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/src/css/common.css">
+    <link rel="stylesheet" href="/src/css/product.css">    
+</head>
+<body>
+    <main id="content" class="container my-5">
+        <section id="product" class="container col-sm-10 my-5"></section>
+        
+        <section id="description_review" class="container col-sm-10">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
+                <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">Review (0)</button>
+            </div>
+            <div class="tab-content mt-3" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab" tabindex="0"></div>
+                <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
+                    <div class="mb-3">
+                        There are no reviews yet.
+                    </div>
+                    <div class="form-control p-3">
+                        <div class="fs-4">
+                            Be the first to review this product
+                        </div>
+                        <div class="mb-4">
+                            Your email address will not be published. Required fields are marked *
+                        </div>
+                        <div class="mb-3">
+                            <label class="fs-5">
+                                Rating *
+                                <span class="ms-3" id="review_rate_inp">
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                    <i class="bi bi-star"></i>
+                                </span>
+                            </label>
+                        </div>
+                        <form id="review_form" method="post" action="#">
+                            <div class="mb-3">
+                                <label for="review_review_inp" class="form-label fs-5">Review *</label>
+                                <textarea class="form-control" id="review_review_inp" rows="3" required></textarea>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label for="review_name_inp" class="form-label">Name *</label>
+                                    <input type="text" class="form-control" id="review_name_inp" placeholder="name" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="review_email_inp" class="form-label">Email address *</label>
+                                    <input type="email" class="form-control" id="review_email_inp" placeholder="name@example.com" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn primary-btn">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <section id="related_products" class="container col-sm-10 mt-3">
+            <div>
+                <p class="fs-1 fw-bold">Related products</p>
+            </div>
+            <div class="products d-flex flex-wrap gap-5"></div>
+        </section>
+    </main> 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="/src/js/common.js"></script>
+    <script src="/src/js/product.js"></script>
+</body>
+</html>

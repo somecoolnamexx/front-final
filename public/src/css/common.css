@@ -1,6 +1,7 @@
 :root {
     --primary-color: #f8f5f4;
     --accent-color: #ff7a3d;
+    --white-color: #ffffff;
 
     --navbar-text-color: var(--bs-nav-link-color);
 }
@@ -41,6 +42,13 @@ nav .active {
 
 nav a {
     color: var(--navbar-text-color);
+}
+
+.hover-color-active {
+    transition: color 200ms ease;
+}
+.hover-color-active:hover {
+    color: var(--accent-color) !important;
 }
 
 .primary-btn {

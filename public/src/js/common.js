@@ -29,7 +29,7 @@ let categories_dropdown = ''
 
 settings.categories.forEach((element) => {
     categories_dropdown += `
-    <li><a class="dropdown-item" href="/products?category=${element.id}">${element.name}</a></li>
+    <li><a class="dropdown-item hover-color-active" href="/products/?category=${element.id}">${element.name}</a></li>
     `
 })
 
@@ -39,7 +39,7 @@ navbar.classList.add("navbar-expand-lg")
 navbar.classList.add("cover-nav")
 navbar.innerHTML = `
 <div class="container">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
         <i class="bi bi-cart-fill active"></i>
         ${settings.name}
     </a>
@@ -49,10 +49,10 @@ navbar.innerHTML = `
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/">Home</a>
+                <a class="nav-link hover-color-active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle hover-color-active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     By Category
                 </a>
                 <ul class="dropdown-menu">
@@ -60,10 +60,10 @@ navbar.innerHTML = `
                 </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/about_us">About Us</a>
+                <a class="nav-link hover-color-active" href="/about_us">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/contact">Contact</a>
+                <a class="nav-link hover-color-active" href="/contact">Contact</a>
             </li>
         </ul>
         <ul class="navbar-nav ">
@@ -88,9 +88,9 @@ footer.classList.add("py-3")
 footer.classList.add("my-4")
 footer.innerHTML = `
 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-    <li class="nav-item"><a href="/about_us" class="nav-link px-2 text-muted">About Us</a></li>
-    <li class="nav-item"><a href="/contact" class="nav-link px-2 text-muted">Contact</a></li>
+    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted hover-color-active">Home</a></li>
+    <li class="nav-item"><a href="/about_us" class="nav-link px-2 text-muted hover-color-active">About Us</a></li>
+    <li class="nav-item"><a href="/contact" class="nav-link px-2 text-muted hover-color-active">Contact</a></li>
 </ul>
 <div class="d-flex flex-wrap justify-content-between align-items-center px-sm-5">
     <div class="col-md-4 d-flex align-items-center">
@@ -99,22 +99,22 @@ footer.innerHTML = `
 
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
         <li class="ms-3">
-            <a class="text-muted" href="https://www.facebook.com/datotoda13/">
+            <a class="text-muted hover-color-active" href="https://www.facebook.com/datotoda13/">
                 <i class="bi bi-facebook"></i>
             </a>
         </li>
         <li class="ms-3">
-            <a class="text-muted" href="https://www.instagram.com/dato_toda/">
+            <a class="text-muted hover-color-active" href="https://www.instagram.com/dato_toda/">
                 <i class="bi bi-instagram"></i>
             </a>
         </li>
         <li class="ms-3">
-            <a class="text-muted" href="https://github.com/datotoda/">
+            <a class="text-muted hover-color-active" href="https://github.com/datotoda/">
                 <i class="bi bi-github"></i>
             </a>
         </li>
         <li class="ms-3">
-            <a class="text-muted" href="https://www.linkedin.com/in/davit-chinchaladze/">
+            <a class="text-muted hover-color-active" href="https://www.linkedin.com/in/davit-chinchaladze/">
                 <i class="bi bi-linkedin"></i>
             </a>
         </li>
