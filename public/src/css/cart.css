@@ -1,0 +1,16 @@
+#content {
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-block: 2rem;
+}
+
+table th,
+table td {
+    padding: 0.5rem 2rem !important;
+}
+
+table img {
+    max-width: 5rem !important;
+}

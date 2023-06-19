@@ -120,7 +120,7 @@ function render_products(products) {
                     <i class="bi bi-star${element.rating.rate >= 5 ? '-fill' : element.rating.rate >= 4.5 ? '-half' : ''}"></i>
                     ${element.rating.rate}
                 </p>
-                <p class="fw-bold">$${element.price}</p>
+                <p class="fw-bold">$${element.price.toFixed(2)}</p>
             </div>
         `
         

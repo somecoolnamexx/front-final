@@ -33,7 +33,7 @@ function render_product(product) {
             <i class="bi bi-star${product.rating.rate >= 5 ? '-fill' : product.rating.rate >= 4.5 ? '-half' : ''}"></i>
             ${product.rating.rate}
         </p>
-        <p class="fs-3 fw-bold mt-3">$${product.price}</p>
+        <p class="fs-3 fw-bold mt-3">$${product.price.toFixed(2)}</p>
         <p class="mt-3">${product.description}</p>
         <form id="add_to_cart_form" method="post" action="#">
             <div class="row">
@@ -62,13 +62,7 @@ function render_product(product) {
             document.querySelector("#add_to_cart_form_error").textContent = "Quantity must be between 1 and 99"
         } else {
             document.querySelector("#add_to_cart_form_error").textContent = ""
-            let cart = JSON.parse(localStorage.getItem("cart"))
-            cart.push({
-                quantity: parseInt(quantity),
-                product: product
-            })
-            localStorage.setItem("cart", JSON.stringify(cart))
-            refresh_nav_cart()
+            add_to_cart(product, quantity)
             document.querySelector("#add_to_cart_success").classList.remove("d-none")
         }
     })
@@ -109,7 +103,7 @@ function render_related_products(products) {
                     <i class="bi bi-star${element.rating.rate >= 5 ? '-fill' : element.rating.rate >= 4.5 ? '-half' : ''}"></i>
                     ${element.rating.rate}
                 </p>
-                <p class="fw-bold">$${element.price}</p>
+                <p class="fw-bold">$${element.price.toFixed(2)}</p>
             </div>
         `
         related_products_list.appendChild(productEl)

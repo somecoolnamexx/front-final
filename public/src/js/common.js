@@ -1,5 +1,6 @@
 const body = document.querySelector("body")
 const navbar = document.createElement("nav")
+const cart_offcanvas = document.createElement("div")
 const footer = document.createElement("footer")
 
 if (!localStorage.getItem("cart")) {
@@ -41,8 +42,116 @@ settings.categories.forEach((element) => {
     `
 })
 
-function refresh_nav_cart() {
-    document.querySelector("#nav-cart-items").textContent = JSON.parse(localStorage.getItem("cart")).length
+function refresh_display_cart() {
+    const cart = JSON.parse(localStorage.getItem("cart"))
+    
+    document.querySelector("#nav-cart-items").textContent = cart.length
+    
+    let cart_subtotal = 0
+    cart.forEach((cart_item) => {
+        cart_subtotal += cart_item.quantity * cart_item.product.price
+    })
+
+    document.querySelector("#nav-cart-price").textContent = `$${cart_subtotal.toFixed(2)}`
+
+    document.querySelector("#cart-offcanvas-body").innerHTML = ''
+
+    if (cart.length == 0) {
+        document.querySelector("#cart-offcanvas-body").textContent = "No products in the cart."
+        document.querySelector("#cart-offcanvas-body").classList = []
+        document.querySelector("#cart-offcanvas-body").classList.add("offcanvas-body", "d-flex", "justify-content-center", "align-items-center", "text-secondary")
+        document.querySelector("#cart-offcanvas-footer").innerHTML = `
+        <div class="offcanvas-body d-flex flex-column gap-3 mb-3">
+            <button type="button" class="btn primary-btn" data-bs-dismiss="offcanvas" aria-label="Close">Continue Shoping</button>
+        </div>
+        `
+        document.querySelector("#nav-cart-icon").classList.remove("bi-bag-fill")
+        document.querySelector("#nav-cart-icon").classList.add("bi-bag")
+
+    } else {
+        
+        document.querySelector("#nav-cart-icon").classList.remove("bi-bag")
+        document.querySelector("#nav-cart-icon").classList.add("bi-bag-fill")
+        document.querySelector("#cart-offcanvas-body").classList = []
+        document.querySelector("#cart-offcanvas-body").classList.add("offcanvas-body")
+        document.querySelector("#cart-offcanvas-footer").innerHTML = `
+        <hr>
+        <div>
+            <div class="offcanvas-body py-0 d-flex justify-content-between align-items-center text-secondary">
+                <span class="fw-bold">Subtotal:</span>
+                <span id="cart-offcanvas-subtotal">$${cart_subtotal.toFixed(2)}</span>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <div class="offcanvas-body d-flex flex-column gap-3 mb-3">
+                <a href="/cart" class="btn primary-btn">View cart</a>
+                <a href="/cart" class="btn primary-btn">Checkout</a>
+            </div>
+        </div>
+        `
+    }
+
+    cart.forEach((cart_item, index) => {
+        const cartProductEl = document.createElement("div")
+        cartProductEl.classList.add("row")
+        cartProductEl.innerHTML = `
+        <div class="col-3 col-md-2 d-flex justify-content-center align-items-center">
+            <img src="${cart_item.product.image}" alt="image" class="img-fluid">
+        </div>
+        <div class="col-7 col-md-9 d-flex justify-content-center flex-column">
+            <h6 class="">
+                ${cart_item.product.title}
+            </h6>
+            <p class="text-secondary fs-6">
+                ${cart_item.quantity} <i class="bi bi-x"></i> $${cart_item.product.price.toFixed(2)}
+            </p>
+        </div>
+        <div class="col-2 col-md-1 d-flex justify-content-end align-items-center">
+            <span class="remove text-secondary fs-5 opacity-75" role="button"><i class="bi bi-x-circle"></i></span>
+        </div>
+        `
+        if (index > 0) {
+            document.querySelector("#cart-offcanvas-body").appendChild(document.createElement("hr"))    
+        }
+        cartProductEl.querySelector(".remove").addEventListener("click", (e) => remove_item_from_cart(cart_item))
+        document.querySelector("#cart-offcanvas-body").appendChild(cartProductEl)
+    })
+    
+}
+function add_to_cart(product, quantity) {
+    let cart = JSON.parse(localStorage.getItem("cart"))
+    cart.push({
+        id: `${product.id}_${Math.floor(Math.random() * 10000)}`,
+        quantity: parseInt(quantity),
+        product: product
+    })
+    localStorage.setItem("cart", JSON.stringify(cart))
+    refresh_display_cart()
+}
+
+function remove_item_from_cart(item) {
+    let cart = JSON.parse(localStorage.getItem("cart"))
+    cart = cart.filter((cart_item, index) => {
+        if (cart_item.id === item.id) {
+            localStorage.setItem("removed_item", JSON.stringify({
+               index: index,
+               item: item 
+            }))
+            return false
+        }
+        return true
+    })
+    localStorage.setItem("cart", JSON.stringify(cart))
+    refresh_display_cart()
+}
+
+function undo_removed_item_in_cart() {
+    const cart = JSON.parse(localStorage.getItem("cart"))
+    const removed_item = JSON.parse(localStorage.getItem("removed_item"))
+    cart.splice(removed_item.index, 0, removed_item.item)
+    localStorage.setItem("cart", JSON.stringify(cart))
+    refresh_display_cart()
 }
 
 function get_category_id(name) {
@@ -65,9 +174,6 @@ navbar.innerHTML = `
         <i class="bi bi-cart-fill active"></i>
         ${settings.name}
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
             <li class="nav-item">
@@ -88,20 +194,51 @@ navbar.innerHTML = `
                 <a class="nav-link hover-color-active" href="/contact">Contact</a>
             </li>
         </ul>
-        <ul class="navbar-nav ">
+    </div>
+
+    <div>
+        <ul class="navbar-nav flex-row">
             <li class="nav-item">
                 <div class="nav-link">
-                <a class="text-decoration-none position-relative pe-3 active" href="/cart">
-                    Cart <i class="bi bi-cart"></i>
-                    <span id="nav-cart-items" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
-                </a>
+                    <a class="text-decoration-none position-relative pe-3 active" data-bs-toggle="offcanvas" href="#cart-offcanvas" role="button" aria-controls="cart-offcanvas">
+                        <span id="nav-cart-price">$0.00</span> <i id="nav-cart-icon" class="bi bi-bag"></i>
+                        <span id="nav-cart-items" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"></span>
+                    </a>
                 </div>
             </li>
+            <li class="nav-item"> 
+                <button class="navbar-toggler ms-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </li>
         </ul>
-        
-    </div>
+    </div>  
 </div>
 `
+
+cart_offcanvas.classList.add("offcanvas")
+cart_offcanvas.classList.add("offcanvas-end")
+cart_offcanvas.setAttribute("id", "cart-offcanvas")
+cart_offcanvas.setAttribute("tabindex", "-1")
+cart_offcanvas.setAttribute("aria-labelledby", "cart-offcanvas-label")
+cart_offcanvas.innerHTML = `
+<div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="cart-offcanvas-label">Shopping Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<hr>
+<div id="cart-offcanvas-body"></div>
+<div id="cart-offcanvas-footer"></div>
+`
+cart_offcanvas.addEventListener('show.bs.offcanvas', (e) => {
+    if (location.pathname.toLocaleLowerCase().search('cart') >= 0 || 
+        location.pathname.toLocaleLowerCase().search('checkout') >= 0) {
+        e.preventDefault()
+        window.location = '/cart'
+    }
+})
+
+
 footer.classList.add("container")
 footer.classList.add("py-3")
 footer.classList.add("my-4")
@@ -142,5 +279,6 @@ footer.innerHTML = `
 `
 
 body.insertBefore(navbar, body.firstChild)
+body.insertBefore(cart_offcanvas, document.querySelector("body script"))
 body.insertBefore(footer, document.querySelector("body script"))
-refresh_nav_cart()
+refresh_display_cart()
