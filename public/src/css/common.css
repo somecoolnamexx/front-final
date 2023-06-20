@@ -58,3 +58,7 @@ nav a {
     text-transform: lowercase;
     font-variant: small-caps;
 }
+
+.offcanvas {
+    width: min(45rem, 90%) !important;
+}
