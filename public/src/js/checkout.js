@@ -14,13 +14,18 @@ document.querySelector("#payment_radio_card").addEventListener("change", (e) => 
     }
 })
 
-document.querySelector("#order_btn").addEventListener("click", (e) => {
-    alert("your order is ordered")
-})
+function order_submit(message) {
+    const checkout_form = document.querySelector("#checkout_form")
+    if (checkout_form.checkValidity()) {
+        alert(message)
+        checkout_form.reset()
+    } else {
+        checkout_form.reportValidity()
+    }
+}
 
-document.querySelector("#gpay_btn").addEventListener("click", (e) => {
-    alert("your order is ordered with gpay")
-})
+document.querySelector("#order_btn").addEventListener("click", (e) => order_submit("your order is ordered"))
+document.querySelector("#gpay_btn").addEventListener("click", (e) => order_submit("your order is ordered with gpay"))
 
 
 let cart = JSON.parse(localStorage.getItem("cart"))
