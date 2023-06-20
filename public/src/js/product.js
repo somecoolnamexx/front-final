@@ -40,7 +40,7 @@ function render_product(product) {
                 <div class="col-4 col-xl-2">
                     <input type="number" id="quantity" class="form-control" value="1" min="1" max="99">
                 </div>
-                <button type="submit" class="btn primary-btn col-5 ms-3" >Add To Cart</button>
+                <button type="submit" class="fs-5 btn primary-btn col-5 ms-3" >Add To Cart</button>
             </div>
             <div id="add_to_cart_form_error" class="text-danger"></div>
         </form>

@@ -1,0 +1,61 @@
+#content {
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-block: 2rem;
+}
+
+.required::after {
+    content: " *";
+    color: red;
+}
+
+#gpay_btn {
+    background-origin: content-box;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0px;
+    border-radius: 4px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 1px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    cursor: pointer;
+    height: 40px;
+    min-height: 40px;
+    padding: 9px 24px;
+    background-image: url(https://www.gstatic.com/instantbuy/svg/light/pay/en.svg);
+    min-width: 100px;
+}
+
+#gpay_btn:hover {
+    background-color: #f8f8f8;
+}
+#gpay_btn:active {
+    box-shadow: #e8e8e8 0 1px 1px 0, #e8e8e8 0 1px 3px;
+}
+
+.payment_message {
+    position: relative;
+}
+
+.payment_message::before {
+    position: absolute;
+    content: "";
+    top: -2.1rem;
+    left: 2rem;
+    border: 1rem solid transparent;
+    border-bottom-color: var(--bs-secondary-bg-subtle);
+}
+#gpay_btn,
+#card_message,
+.card_show #cash_message,
+.card_show #order_btn {
+    display: none;
+}
+
+#order_btn,
+#cash_message,
+.card_show #card_message,
+.card_show #gpay_btn {
+    display: block;
+}

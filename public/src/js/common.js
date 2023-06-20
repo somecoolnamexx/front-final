@@ -85,8 +85,8 @@ function refresh_display_cart() {
         <hr>
         <div>
             <div class="offcanvas-body d-flex flex-column gap-3 mb-3">
-                <a href="/cart" class="btn primary-btn">View cart</a>
-                <a href="/cart" class="btn primary-btn">Checkout</a>
+                <a href="/cart" class="fs-5 btn primary-btn">View cart</a>
+                <a href="/checkout" class="fs-5 btn primary-btn">Checkout</a>
             </div>
         </div>
         `
