@@ -1,0 +1,61 @@
+:root {
+    --banner-image-border-radius: 5rem;
+}
+#banner {
+    height: 50vh;
+    background: url("https://images.unsplash.com/photo-1606075920560-c43aa8659a3c?w=1000");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    border-end-end-radius: var(--banner-image-border-radius);
+    border-end-start-radius: var(--banner-image-border-radius);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#banner p {
+    font-size: 4rem;
+}
+
+.team_buttons {
+    position: relative;
+}
+
+.team_buttons::before {
+    position: absolute;
+    content: "";
+    background-color: var(--accent-color);
+    padding-inline: 0.75rem;
+    padding-block: 0.075rem;
+    top: -1.5rem;
+}
+
+#team_person_1 {
+    transform: rotateY(180deg);
+}
+#team_person_2 {
+    filter: brightness(200%) saturate(500%) contrast(200%);
+}
+#team_person_3 {
+    filter: sepia(100%);
+}
+
+
+#interested_banner {
+    height: 85vh;
+    background: url("https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/CTA-bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    padding-top: 10rem;
+}
+
+
+@media only screen and (max-width: 992px) {
+    #banner {
+        height: 30vh;
+    }
+}
