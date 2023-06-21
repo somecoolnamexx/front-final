@@ -18,7 +18,8 @@ function render_product(product) {
     <div class="col-lg-6 d-flex justify-content-center">
         <img src="${product.image}" alt="image" class="img-fluid">
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-1 my-3"></div>
+    <div class="col-lg-5">
         <a href="/products/?category=${get_category_id(product.category)}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
             ${product.category}
         </a>
@@ -36,8 +37,8 @@ function render_product(product) {
         <p class="fs-3 fw-bold mt-3">$${product.price.toFixed(2)}</p>
         <p class="mt-3">${product.description}</p>
         <form id="add_to_cart_form" method="post" action="#">
-            <div class="row">
-                <div class="col-4 col-xl-2">
+            <div class="row my-4">
+                <div class="col-4 col-lg-3 col-xxl-2">
                     <input type="number" id="quantity" class="form-control" value="1" min="1" max="99">
                 </div>
                 <button type="submit" class="fs-5 btn primary-btn col-5 ms-3" >Add To Cart</button>
@@ -45,7 +46,7 @@ function render_product(product) {
             <div id="add_to_cart_form_error" class="text-danger"></div>
         </form>
         <hr>
-        <p>
+        <p class="my-4">
             Category:
             <a href="/products/?category=${get_category_id(product.category)}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
                 ${product.category}
@@ -124,39 +125,50 @@ if (localStorage.getItem("products")) {
     })
 }
 
+function refresh_stars(rate_value) {
+    document.querySelectorAll("#review_rate_inp i").forEach((i) => {
+        i.classList.remove("bi-star")
+        i.classList.remove("bi-star-half")
+        i.classList.remove("bi-star-full")
+    })
+    document.querySelector("#review_star_1").classList.add(rate_value >= 1  ? "bi-star-fill" : rate_value >= 0.5 ? "bi-star-half" : "bi-star")
+    document.querySelector("#review_star_2").classList.add(rate_value >= 2  ? "bi-star-fill" : rate_value >= 1.5 ? "bi-star-half" : "bi-star")
+    document.querySelector("#review_star_3").classList.add(rate_value >= 3  ? "bi-star-fill" : rate_value >= 2.5 ? "bi-star-half" : "bi-star")
+    document.querySelector("#review_star_4").classList.add(rate_value >= 4  ? "bi-star-fill" : rate_value >= 3.5 ? "bi-star-half" : "bi-star")
+    document.querySelector("#review_star_5").classList.add(rate_value >= 5  ? "bi-star-fill" : rate_value >= 4.5 ? "bi-star-half" : "bi-star")
+}
 
-const stars = document.querySelectorAll("#review_rate_inp i")
-
-stars.forEach((i) => {
+document.querySelectorAll("#review_rate_inp i").forEach((i) => {
     i.addEventListener("click", (e) => {
-        let fill = true
-        stars.forEach((j) => {
-            if (fill) {
-                j.classList.remove("bi-star")
-                j.classList.add("bi-star-fill")
-            } else {
-                j.classList.remove("bi-star-fill")
-                j.classList.add("bi-star")
-            }
-            if (i === j) {
-                fill = false
-            }
-        })
+        let rate_value = parseInt(i.id.slice(-1))
+        const mid_x = i.getBoundingClientRect().x + i.getBoundingClientRect().width / 2
+        rate_value -= e.x < mid_x ? 0.5 : 0
+
+        document.querySelector("#review_review_rate").value = rate_value
+        refresh_stars(rate_value)
     })
 })
 
+document.querySelector("#review_review_rate").addEventListener("change", (e) => {
+    const rate = document.querySelector("#review_review_rate").value
+    if (!rate || !parseFloat(rate) || parseFloat(rate) < 0) {
+        document.querySelector("#review_review_rate").value = 0
+    } else if (parseFloat(rate) >= 5){
+        document.querySelector("#review_review_rate").value = 5
+    }
+    refresh_stars(parseFloat(rate))
+})
 
 document.querySelector("#review_form").addEventListener("submit", (e) => {
     e.preventDefault()
-    if (!document.querySelector("#review_rate_inp .bi-star-fill")) {
-        alert("Please select a rating")
-    } else if (
-            document.querySelector("#review_review_inp").value && 
-            document.querySelector("#review_name_inp").value && 
-            document.querySelector("#review_email_inp").value
+    if (document.querySelector("#review_review_rate").value && 
+        document.querySelector("#review_review_inp").value && 
+        document.querySelector("#review_name_inp").value && 
+        document.querySelector("#review_email_inp").value
         ) {
         alert("Your review is send")
-        location.reload()
+        document.querySelector("#review_form").reset()
+        refresh_stars(0)
     } else {
         alert("Please fill all data")
     }

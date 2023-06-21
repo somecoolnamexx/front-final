@@ -170,30 +170,70 @@ navbar.classList.add("navbar-expand-lg")
 navbar.classList.add("cover-nav")
 navbar.innerHTML = `
 <div class="container">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand fs-4" href="/">
         <i class="bi bi-cart-fill active"></i>
         ${settings.name}
     </a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link hover-color-active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle hover-color-active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    By Category
-                </a>
-                <ul class="dropdown-menu">
-                    ${categories_dropdown}
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link hover-color-active" href="/about_us">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link hover-color-active" href="/contact">Contact</a>
-            </li>
-        </ul>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarSupportedContent">
+        <div class="offcanvas-header">
+            <a class="navbar-brand fs-2" href="/">
+                <i class="bi bi-cart-fill active"></i>
+                ${settings.name}
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link hover-color-active" aria-current="page" href="/">Home</a>
+                </li>
+                <hr class="my-1">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle hover-color-active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        By Category
+                    </a>
+                    <ul class="dropdown-menu">
+                        ${categories_dropdown}
+                    </ul>
+                </li>
+                <hr class="my-1">
+                <li class="nav-item">
+                    <a class="nav-link hover-color-active" href="/about_us">About Us</a>
+                </li>
+                <hr class="my-1">
+                <li class="nav-item">
+                    <a class="nav-link hover-color-active" href="/contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <div class="offcanvas-footer offcanvas-body flex-grow-0 d-lg-none"> 
+            <div class="text-center text-muted">
+                © 2023 Davit Chinchaladze
+            </div>
+            <hr>
+            <ul class="d-flex justify-content-around list-unstyled fs-4">
+                <li>
+                    <a class="text-muted hover-color-active" href="https://www.facebook.com/datotoda13/">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="text-muted hover-color-active" href="https://www.instagram.com/dato_toda/">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="text-muted hover-color-active" href="https://github.com/datotoda/">
+                        <i class="bi bi-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="text-muted hover-color-active" href="https://www.linkedin.com/in/davit-chinchaladze/">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div>
@@ -207,7 +247,7 @@ navbar.innerHTML = `
                 </div>
             </li>
             <li class="nav-item"> 
-                <button class="navbar-toggler ms-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler ms-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </li>

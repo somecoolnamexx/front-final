@@ -6,11 +6,6 @@
     padding-block: 2rem;
 }
 
-.required::after {
-    content: " *";
-    color: red;
-}
-
 #gpay_btn {
     background-origin: content-box;
     background-position: center center;
