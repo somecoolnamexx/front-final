@@ -59,6 +59,11 @@ nav a {
     font-variant: small-caps;
 }
 
-.offcanvas {
+#cart-offcanvas {
     width: min(45rem, 90%) !important;
+}
+
+.required::after {
+    content: " *";
+    color: red;
 }

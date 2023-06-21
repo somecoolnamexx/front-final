@@ -49,7 +49,7 @@
                     <div class="mb-3">
                         There are no reviews yet.
                     </div>
-                    <div class="form-control p-3">
+                    <form id="review_form" method="post" action="#" class="form-control p-3">
                         <div class="fs-4">
                             Be the first to review this product
                         </div>
@@ -57,35 +57,42 @@
                             Your email address will not be published. Required fields are marked *
                         </div>
                         <div class="mb-3">
-                            <label class="fs-5">
-                                Rating *
-                                <span class="ms-3" id="review_rate_inp">
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                </span>
-                            </label>
+                            <div class="row fs-5">
+                                <div class="col-sm-3 col-lg-2">
+                                    <label for="review_review_rate" class="form-label required">Rating</label>
+                                </div>
+                                <div class="col-sm-3 col-lg-2">
+                                    <input id="review_review_rate" class="form-control" type="number" step="0.5" min="0.5" max="5" value="0" required>
+                                </div>
+                                <div class="col">
+                                    <span id="review_rate_inp">
+                                        <i id="review_star_1" class="bi bi-star" role="button"></i>
+                                        <i id="review_star_2" class="bi bi-star" role="button"></i>
+                                        <i id="review_star_3" class="bi bi-star" role="button"></i>
+                                        <i id="review_star_4" class="bi bi-star" role="button"></i>
+                                        <i id="review_star_5" class="bi bi-star" role="button"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <form id="review_form" method="post" action="#">
+                        <div>
                             <div class="mb-3">
-                                <label for="review_review_inp" class="form-label fs-5">Review *</label>
+                                <label for="review_review_inp" class="form-label fs-5 required">Review</label>
                                 <textarea class="form-control" id="review_review_inp" rows="3" required></textarea>
                             </div>
                             <div class="row g-3 mb-3">
                                 <div class="col-sm-6">
-                                    <label for="review_name_inp" class="form-label">Name *</label>
+                                    <label for="review_name_inp" class="form-label required">Name</label>
                                     <input type="text" class="form-control" id="review_name_inp" placeholder="name" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="review_email_inp" class="form-label">Email address *</label>
+                                    <label for="review_email_inp" class="form-label required">Email address</label>
                                     <input type="email" class="form-control" id="review_email_inp" placeholder="name@example.com" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn primary-btn">Submit</button>
-                        </form>
-                    </div>
+                            <button type="submit" class="fs-5 btn primary-btn">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
