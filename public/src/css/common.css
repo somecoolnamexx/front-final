@@ -5,19 +5,19 @@
 
     --navbar-text-color: var(--bs-nav-link-color);
 }
-.witespace-1 {
+.whitespace-1 {
     height: 1rem;
 }
-.witespace-2 {
+.whitespace-2 {
     height: 2rem;
 }
-.witespace-3 {
+.whitespace-3 {
     height: 3rem;
 }
-.witespace-4 {
+.whitespace-4 {
     height: 4rem;
 }
-.witespace-5 {
+.whitespace-5 {
     height: 5rem;
 }
 
@@ -38,6 +38,7 @@ nav {
 
 nav .active {
     color: var(--accent-color) !important;
+    font-weight: 500!important;
 }
 
 nav a {
@@ -66,4 +67,13 @@ nav a {
 .required::after {
     content: " *";
     color: red;
+}
+
+::selection {
+    color: var(--primary-color);
+    background: var(--accent-color);
+}
+::-moz-selection { 
+    color: var(--primary-color);
+    background: var(--accent-color);
 }

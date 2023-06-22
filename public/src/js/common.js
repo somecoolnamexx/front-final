@@ -30,7 +30,7 @@ if (!localStorage.getItem("categories")) {
 
 
 const settings = {
-    name: "magazia",
+    name: "sicariele",
     categories: JSON.parse(localStorage.getItem("categories"))
 }
 
@@ -300,14 +300,14 @@ footer.classList.add("container")
 footer.classList.add("py-3")
 footer.classList.add("my-4")
 footer.innerHTML = `
-<ul class="nav justify-content-center border-bottom pb-3 mb-3">
+<ul class="nav justify-content-center border-bottom pb-3 mb-3 gap-3">
     <li class="nav-item"><a href="/" class="nav-link px-2 text-muted hover-color-active">Home</a></li>
     <li class="nav-item"><a href="/about_us" class="nav-link px-2 text-muted hover-color-active">About Us</a></li>
     <li class="nav-item"><a href="/contact" class="nav-link px-2 text-muted hover-color-active">Contact</a></li>
 </ul>
 <div class="d-flex flex-wrap justify-content-between align-items-center px-sm-5">
     <div class="col-md-4 d-flex align-items-center">
-        <span class="mb-3 mb-md-0 text-muted">© 2023 Davit Chinchaladze</span>
+        <span class="text-muted">© 2023 Davit Chinchaladze</span>
     </div>
 
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
@@ -336,6 +336,6 @@ footer.innerHTML = `
 `
 
 body.insertBefore(navbar, body.firstChild)
-body.insertBefore(cart_offcanvas, document.querySelector("body script"))
-body.insertBefore(footer, document.querySelector("body script"))
+body.insertBefore(cart_offcanvas, body.querySelector("script"))
+body.insertBefore(footer, body.querySelector("script"))
 refresh_display_cart()

@@ -3,7 +3,7 @@
 }
 #banner {
     height: 50vh;
-    background: url("https://images.unsplash.com/photo-1606075920560-c43aa8659a3c?w=1000");
+    background: url("https://images.unsplash.com/photo-1606075920560-c43aa8659a3c?crop=bottom&fit=crop&h=400&w=1000");
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: cover;
