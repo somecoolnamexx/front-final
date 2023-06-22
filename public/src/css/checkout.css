@@ -4,6 +4,7 @@
     flex-direction: column;
     gap: 1.5rem;
     padding-block: 2rem;
+    min-height: 100vh;
 }
 
 #gpay_btn {

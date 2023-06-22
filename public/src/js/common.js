@@ -165,6 +165,23 @@ function get_category_name(id) {
 }
 
 
+function fetch_products(func) {
+    localStorage.removeItem("products")
+    if (localStorage.getItem("products")) {
+        func(JSON.parse(localStorage.getItem("products")))
+    } else {
+        fetch('https://fakestoreapi.com/products')
+        .then((res) => res.json())
+        .then((json) => localStorage.setItem("products", JSON.stringify(json)))
+        .catch(async () => await fetch('https://raw.githubusercontent.com/datotoda/front-final/master/public/src/products.json')
+            .then((res) => res.json())
+            .then((json) => localStorage.setItem("products", JSON.stringify(json)))
+            .catch(() => localStorage.setItem("products", JSON.stringify([])))
+        ).finally(() => func(JSON.parse(localStorage.getItem("products"))))
+    }
+}
+
+
 navbar.classList.add("navbar")
 navbar.classList.add("navbar-expand-lg")
 navbar.classList.add("cover-nav")

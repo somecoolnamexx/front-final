@@ -11,6 +11,7 @@ if (!product_id || !parseInt(product_id) || parseInt(product_id) > 20 || parseIn
 function render_product(product) {
     document.querySelector("#description").textContent = product.description
     document.querySelector("#q_product_name").textContent = product.title.length > 40 ? product.title.slice(0, 37) + '...' : product.title
+    document.querySelector("#product").innerHTML = ''
 
     const productEl = document.createElement("div")
     productEl.classList.add("row")
@@ -71,6 +72,7 @@ function render_product(product) {
 
 function render_related_products(products) {
     const related_products_list = document.querySelector("#related_products .products")
+    related_products_list.innerHTML = ''
 
     products = products.filter((p) => p.id != product_id)
     let s = Math.floor(Math.random() * (products.length - 4))
@@ -111,19 +113,6 @@ function render_related_products(products) {
     });
 }
 
-
-if (localStorage.getItem("products")) {
-    render_product(JSON.parse(localStorage.getItem("products")).filter((p) => p.id == product_id)[0])
-    render_related_products(JSON.parse(localStorage.getItem("products")))
-} else {
-    fetch('https://fakestoreapi.com/products')
-    .then((res) => res.json())
-    .then((json) => {
-        localStorage.setItem("products", JSON.stringify(json))
-        render_product(json.filter((p) => p.id == product_id)[0])
-        render_related_products(json)
-    })
-}
 
 function refresh_stars(rate_value) {
     document.querySelectorAll("#review_rate_inp i").forEach((i) => {
@@ -174,3 +163,90 @@ document.querySelector("#review_form").addEventListener("submit", (e) => {
     }
 })
 
+const productEl = document.createElement("div")
+productEl.classList.add("row")
+productEl.innerHTML = `
+<div class="col-lg-6 d-flex justify-content-center">
+    <svg class="placeholder">
+</div>
+<div class="col-lg-1 my-3"></div>
+<div class="col-lg-5">
+    <span class="text-secondary placeholder-glow">
+        <span class="placeholder col-4"></span>
+    </span>
+    <h3 class="card-title placeholder-glow mt-2">
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-6"></span>
+    </h3>
+    <p class="placeholder-glow">
+        <div class="placeholder-glow col-6">
+            <span class="placeholder col-1"></span>
+            <span class="placeholder col-1"></span>
+            <span class="placeholder col-1"></span>
+            <span class="placeholder col-1"></span>
+            <span class="placeholder col-1"></span>
+            <span class="placeholder col-2"></span>
+        </div
+    </p>
+    <p class="fs-3 fw-bold mt-3">
+        <span class="placeholder col-4"></span>
+    </p>
+    <p class="mt-3 placeholder-glow">
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-5"></span>
+        <span class="placeholder col-6"></span>
+        <span class="placeholder col-5"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-7"></span>
+        <span class="placeholder col-4"></span>
+        <span class="placeholder col-5"></span>
+        <span class="placeholder col-6"></span>
+    </p>
+    <div class="my-4 placeholder-glow">
+        <span class="placeholder col-2 p-3"></span>
+        <button type="submit" class="placeholder fs-5 btn primary-btn col-5 ms-3" >Add To Cart</button>
+    </div>
+    <hr>
+    <p class="text-secondary placeholder-glow my-4">
+        <span class="placeholder col-4"></span>
+    </p>
+</div>
+`
+document.querySelector("#product").appendChild(productEl)
+for (let i = 0; i < 3; i ++) {
+    document.querySelector("#related_products .products").innerHTML += `
+    <div class="card col-12 col-sm-5 col-md-4 col-lg-3 col-xl-2" aria-hidden="true">
+        <svg class="card-img-top placeholder"></svg>
+        <div class="card-body">
+            <span class="placeholder-glow">
+                <span class="placeholder text-secondary col-8"></span>
+            </span>
+            <h6 class="card-title placeholder-glow mt-1">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+            </h6>
+            <p class="card-text placeholder-glow">
+                <span class="placeholder col-1"></span>
+                <span class="placeholder col-1"></span>
+                <span class="placeholder col-1"></span>
+                <span class="placeholder col-1"></span>
+                <span class="placeholder col-1"></span>
+                <span class="placeholder col-2"></span>
+            </p>
+            <p class="card-text placeholder-glow">
+                <span class="placeholder col-5"></span>
+            </p>
+        </div>
+    </div>
+    `
+}
+
+fetch_products((products) => {
+    render_product(products.filter((p) => p.id == product_id)[0])
+    render_related_products(products)
+})

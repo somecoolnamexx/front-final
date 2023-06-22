@@ -17,15 +17,21 @@ document.querySelector("#payment_radio_card").addEventListener("change", (e) => 
 function order_submit(message) {
     const checkout_form = document.querySelector("#checkout_form")
     if (checkout_form.checkValidity()) {
-        alert(message)
-        checkout_form.reset()
+        localStorage.setItem("cart", "[]")
+        document.querySelector("main").innerHTML = `
+        <div class="mt-5 p-3 bg-secondary bg-opacity-10 border border-dark border-3 border-end-0 border-bottom-0 border-start-0 container col-sm-10">
+            <span><i class="bi bi-check-circle-fill"></i> ${message}</span>
+        </div>
+        `
+        refresh_display_cart()
+        scroll(0, 0)
     } else {
         checkout_form.reportValidity()
     }
 }
 
-document.querySelector("#order_btn").addEventListener("click", (e) => order_submit("your order is ordered"))
-document.querySelector("#gpay_btn").addEventListener("click", (e) => order_submit("your order is ordered with gpay"))
+document.querySelector("#order_btn").addEventListener("click", (e) => order_submit("Thank you for your purchase."))
+document.querySelector("#gpay_btn").addEventListener("click", (e) => order_submit("Thank you for your purchase with gpay."))
 
 
 let cart = JSON.parse(localStorage.getItem("cart"))

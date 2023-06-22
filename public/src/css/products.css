@@ -1,3 +1,4 @@
+#products .products svg,
 #products .products img {
     height: 10rem;
     object-fit: contain;

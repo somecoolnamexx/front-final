@@ -1,65 +1,17 @@
 document.querySelector("nav").classList.remove("cover-nav")
 
-const urlParams = new URLSearchParams(window.location.search);
-
-const category_id = urlParams.get('category')
-const q = urlParams.get('q')
-
-if (category_id && (!parseInt(category_id) || parseInt(category_id) > 4 || parseInt(category_id) < 1)) {
-    window.location.search = q ? `q=${q}` : ''
-} else {
-    const clearCategoryEl = document.createElement("li")
-    clearCategoryEl.classList.add("nav-item")
-    clearCategoryEl.innerHTML = `
-    <a href="?category=0" class="nav-link p-0 text-dark hover-color-active d-flex justify-content-between">
-        <span>all category</span>
-        <span id="category_0_quantity">()</span>
-    </a>
-    `
-    clearCategoryEl.querySelector('a').addEventListener("click", (e) => {
-        e.preventDefault()
-        urlParams.set("category", 0)
-        window.location.search = urlParams.toString()
-    });
-    
-    document.querySelector("#category_list").appendChild(clearCategoryEl)
-}
-document.querySelector('#search_inp').value = q ? q : ''
-if (document.querySelector('#search_clear') && q) {
-    document.querySelector('#search_clear').classList.remove('d-none')
-}
-
-
-document.querySelector('#search_clear').addEventListener("click", (e) => {
-    urlParams.delete("q")
-    window.location.search = urlParams.toString()
-})
-
-
-const categories = JSON.parse(localStorage.getItem("categories"))
-
-categories.forEach((category) => {
-    const categoryEl = document.createElement("li")
-    categoryEl.classList.add("nav-item")
-    categoryEl.innerHTML = `
-    <a href="?category=${category.id}" class="nav-link p-0 text-dark hover-color-active d-flex justify-content-between">
-        <span> ${category.name}</span>
-        <span id="category_${category.id}_quantity">()</span>
-    </a>
-    `
-    categoryEl.querySelector('a').addEventListener("click", (e) => {
-        e.preventDefault()
-        urlParams.set("category", category.id)
-        window.location.search = urlParams.toString()
-    });
-    
-    document.querySelector("#category_list").appendChild(categoryEl)
-})
-
-function render_category_quantities(products) {
+function filter_q(products) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const q = urlParams.get('q')
     if (q) {
         products = products.filter((p) => p.title.toLowerCase().search(q.toLowerCase()) != -1)
     }
+    return products
+}
+
+function render_category_quantities(products) {
+    const categories = JSON.parse(localStorage.getItem("categories"))
+    products = filter_q(products)
     categories.forEach((c) => {
         let count = 0
         products.forEach((p) => {
@@ -72,23 +24,19 @@ function render_category_quantities(products) {
     document.querySelector(`#category_0_quantity`).textContent = `(${products.length})`
 }
 
-document.querySelector('#search_form').addEventListener("submit", (e) => {
-    e.preventDefault()
-    urlParams.set("q", document.querySelector('#search_inp').value)
-    window.location.search = urlParams.toString()
-})
-
 
 function render_products(products) {
     const related_products_list = document.querySelector("#products .products")
+    const urlParams = new URLSearchParams(window.location.search);
+    const category_id = urlParams.get('category')
 
+    related_products_list.innerHTML = ''
+    
     if (category_id) {
-        products = products.filter((p) => p.category ==  get_category_name(category_id))
+        products = products.filter((p) => p.category == get_category_name(category_id))
     }
     
-    if (q) {
-        products = products.filter((p) => p.title.toLowerCase().search(q.toLowerCase()) != -1)
-    }
+    products = filter_q(products)
     
     document.querySelector('#products_quantity_text').textContent = products.length > 1 ? `Showing all ${products.length} results` : products.length == 1 ?"Showing the single result" : "No products were found matching your selection."
     
@@ -129,22 +77,112 @@ function render_products(products) {
         related_products_list.appendChild(spaceEl)
         related_products_list.appendChild(productEl)
     });
-
-    
 }
 
-
-if (localStorage.getItem("products")) {
-    render_category_quantities(JSON.parse(localStorage.getItem("products")))
-    render_products(JSON.parse(localStorage.getItem("products")))
-} else {
-    fetch('https://fakestoreapi.com/products')
-    .then((res) => res.json())
-    .then((json) => {
-        localStorage.setItem("products", JSON.stringify(json))
-        render_category_quantities(json)
-        render_products(json)
+function update_products() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const q = urlParams.get('q')
+    if (q) {
+        document.querySelector('#search_inp').value = q
+        document.querySelector('#search_clear').classList.remove('d-none')
+    } else {
+        document.querySelector('#search_inp').value = ''
+        document.querySelector('#search_clear').classList.add('d-none')
+    }
+    fetch_products((products) => {
+        render_category_quantities(products)
+        render_products(products)
     })
 }
 
 
+function url_params_change(func) {
+    const url = new URL(window.location.href);
+    func(url.searchParams)
+    window.history.replaceState(null, null, url);
+    update_products()
+}
+
+function initial() {
+    for (let i = 0; i < 3; i ++) {
+        document.querySelector("#products .products").innerHTML += `
+        <div class="col-1"></div>
+        <div class="card col-11 col-md-5 col-xl-3 my-4" aria-hidden="true">
+            <svg class="card-img-top placeholder"></svg>
+            <div class="card-body">
+                <p class="placeholder-glow">
+                    <span class="placeholder text-secondary col-8"></span>
+                </p>
+                <h6 class="card-title placeholder-glow">
+                    <span class="placeholder col-7"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-6"></span>
+                </h6>
+                <p class="card-text placeholder-glow">
+                    <span class="placeholder col-1"></span>
+                    <span class="placeholder col-1"></span>
+                    <span class="placeholder col-1"></span>
+                    <span class="placeholder col-1"></span>
+                    <span class="placeholder col-1"></span>
+                    <span class="placeholder col-2"></span>
+                </p>
+                <p class="card-text placeholder-glow">
+                    <span class="placeholder col-5"></span>
+                </p>
+            </div>
+        </div>
+        `
+    }
+
+    JSON.parse(localStorage.getItem("categories")).forEach((category) => {
+        const categoryEl = document.createElement("li")
+        categoryEl.classList.add("nav-item")
+        categoryEl.innerHTML = `
+        <a href="?category=${category.id}" class="nav-link p-0 text-dark hover-color-active d-flex justify-content-between">
+            <span> ${category.name}</span>
+            <span id="category_${category.id}_quantity">()</span>
+        </a>
+        `
+        categoryEl.querySelector('a').addEventListener("click", (e) => {
+            e.preventDefault()
+            url_params_change((url_params) => {
+                url_params.set("category", category.id)
+            })
+        });    
+        document.querySelector("#category_list").appendChild(categoryEl)
+    })
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const category_id = urlParams.get('category')
+
+    if (category_id && (!parseInt(category_id) || parseInt(category_id) > 4 || parseInt(category_id) < 1)) {
+        url_params_change((url_params) => {
+            url_params.delete("category")
+        })
+    } else {
+        url_params_change(() => {})
+    }
+}
+
+document.querySelector('#search_form').addEventListener("submit", (e) => {
+    e.preventDefault()
+    url_params_change((url_params) => {
+        url_params.set("q", document.querySelector('#search_inp').value)
+    })
+})
+
+document.querySelector('#search_clear').addEventListener("click", (e) => {
+    url_params_change((url_params) => {
+        url_params.delete("q")
+    })
+})
+
+document.querySelector('#category-0-link').addEventListener("click", (e) => {
+    e.preventDefault()
+    url_params_change((url_params) => {
+        url_params.delete("category")
+    })
+});
+
+initial()

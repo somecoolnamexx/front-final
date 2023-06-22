@@ -22,6 +22,7 @@
 }
 
 
+#featured_products_list svg,
 #featured_products_list img {
     height: 15rem;
     object-fit: contain;

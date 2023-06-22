@@ -1,4 +1,3 @@
-const featured_products_list = document.querySelector("#featured_products_list")
 
 document.querySelectorAll("#navbarSupportedContent ul li a").forEach((a) => {
     if (a.textContent.trim().toLowerCase() === 'home') {
@@ -7,6 +6,9 @@ document.querySelectorAll("#navbarSupportedContent ul li a").forEach((a) => {
 })
 
 function render_products(products) {
+    const featured_products_list = document.querySelector("#featured_products_list")
+    featured_products_list.innerHTML =''
+
     products.reverse()
     products = products.slice(0, 10)
     products.forEach(element => {
@@ -38,14 +40,25 @@ function render_products(products) {
     });
 }
 
-if (localStorage.getItem("products")) {
-    render_products(JSON.parse(localStorage.getItem("products")))
-} else {
-    fetch('https://fakestoreapi.com/products')
-    .then((res) => res.json())
-    .then((json) => {
-        localStorage.setItem("products", JSON.stringify(json))
-        render_products(json)
-    })
+
+for (let i = 0; i < 3; i ++) {
+    document.querySelector("#featured_products_list").innerHTML += `
+    <div class="card col-12 col-sm-5 col-md-4 col-lg-3 col-xl-2" aria-hidden="true">
+        <svg class="placeholder card-img-top"></svg>
+        <div class="card-body">
+            <p class="card-text placeholder-glow">
+                <span class="placeholder col-7"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-4"></span>
+                <span class="placeholder col-6"></span>
+            </p>
+            <p class="card-text placeholder-glow">
+                <span class="placeholder col-8"></span>
+            </p>
+            <a class="btn primary-btn placeholder col-6"></a>
+        </div>
+    </div>
+    `
 }
 
+fetch_products((products) => render_products(products))
