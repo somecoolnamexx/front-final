@@ -41,14 +41,21 @@
             </form>
             <div class="bg-white py-4 px-4 px-sm-2 px-xl-4 mt-3">
                 <p class="fs-4 mb-2">Category</p>
-                <ul id="category_list" class="nav flex-column"></ul>
+                <ul id="category_list" class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="?category=0" id="category-0-link" class="nav-link p-0 text-dark hover-color-active d-flex justify-content-between">
+                            <span>all category</span>
+                            <span id="category_0_quantity">()</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     
         <section id="products" class="col-sm-8 col-lg-9 mt-3 mt-sm-0">
             <div class="bg-white py-4 px-4 px-sm-2 px-xl-4">
                 <p class="fs-2 fw-bold col-11 mx-auto my-3">Products</p>
-                <p id="products_quantity_text" class="col-11 mx-auto my-2">Showing the single result</p>
+                <p id="products_quantity_text" class="col-11 mx-auto my-2">Fetching...</p>
                 <div class="products d-flex flex-wrap col-11"></div>
             </div>
         </section>

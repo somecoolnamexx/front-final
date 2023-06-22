@@ -7,6 +7,12 @@
     padding-block: 2rem;
 }
 
+#product svg {
+    min-height: 20rem;
+    width: 100%;
+}
+
+#product svg,
 #product img {
     max-height: 30rem;
     object-fit: contain;
@@ -20,6 +26,7 @@
     color: var(--accent-color) !important;
 }
 
+#related_products .products svg,
 #related_products .products img {
     height: 10rem;
     object-fit: contain;
