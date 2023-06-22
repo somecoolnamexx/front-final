@@ -1,0 +1,43 @@
+:root {
+    --banner-image-border-radius: 5rem;
+}
+#banner {
+    height: 50vh;
+    background: url("https://images.unsplash.com/photo-1528260249572-a56fc30084ef?crop=bottom&fit=crop&h=500&w=1000");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    border-end-end-radius: var(--banner-image-border-radius);
+    border-end-start-radius: var(--banner-image-border-radius);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#banner p {
+    font-size: 4rem;
+}
+
+.hover-color-active-reversed {
+    transition: color 200ms ease;
+
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+}
+.hover-color-active-reversed:not(:hover) {
+    color: var(--accent-color) !important;
+}
+
+#contact .active {
+    color: var(--accent-color) !important;
+}
+
+iframe {
+    width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+    #banner {
+        height: 30vh;
+    }
+}
