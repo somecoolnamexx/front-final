@@ -68,3 +68,12 @@ nav a {
     content: " *";
     color: red;
 }
+
+::selection {
+    color: var(--primary-color);
+    background: var(--accent-color);
+}
+::-moz-selection { 
+    color: var(--primary-color);
+    background: var(--accent-color);
+}
