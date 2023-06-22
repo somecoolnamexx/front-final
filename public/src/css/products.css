@@ -8,3 +8,7 @@
 #products .products .card-title {
     min-height: 5rem;
 }
+
+#category_list .active {
+    color: var(--accent-color) !important;
+}

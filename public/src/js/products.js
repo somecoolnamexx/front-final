@@ -139,13 +139,19 @@ function initial() {
         const categoryEl = document.createElement("li")
         categoryEl.classList.add("nav-item")
         categoryEl.innerHTML = `
-        <a href="?category=${category.id}" class="nav-link p-0 text-dark hover-color-active d-flex justify-content-between">
+        <a href="?category=${category.id}" id="category-${category.id}-link" class="nav-link p-0 text-dark hover-color-active d-flex justify-content-between">
             <span> ${category.name}</span>
             <span id="category_${category.id}_quantity">()</span>
         </a>
         `
-        categoryEl.querySelector('a').addEventListener("click", (e) => {
+        categoryEl.querySelector(`#category-${category.id}-link`).addEventListener("click", (e) => {
             e.preventDefault()
+
+            if (document.querySelector("#category_list .active")) {
+                document.querySelector("#category_list .active").classList.remove("active")
+            }
+            categoryEl.querySelector(`#category-${category.id}-link`).classList.add("active")
+            
             url_params_change((url_params) => {
                 url_params.set("category", category.id)
             })
@@ -160,8 +166,10 @@ function initial() {
         url_params_change((url_params) => {
             url_params.delete("category")
         })
+        document.querySelector('#category-0-link').classList.add("active")
     } else {
         url_params_change(() => {})
+        document.querySelector(`#category-${category_id ? category_id : 0}-link`).classList.add("active")
     }
 }
 
@@ -180,6 +188,12 @@ document.querySelector('#search_clear').addEventListener("click", (e) => {
 
 document.querySelector('#category-0-link').addEventListener("click", (e) => {
     e.preventDefault()
+    
+    if (document.querySelector("#category_list .active")) {
+        document.querySelector("#category_list .active").classList.remove("active")
+    }
+    document.querySelector('#category-0-link').classList.add("active")
+    
     url_params_change((url_params) => {
         url_params.delete("category")
     })
