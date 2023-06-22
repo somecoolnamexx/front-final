@@ -19,8 +19,9 @@ function order_submit(message) {
     if (checkout_form.checkValidity()) {
         localStorage.setItem("cart", "[]")
         document.querySelector("main").innerHTML = `
-        <div class="mt-5 p-3 bg-secondary bg-opacity-10 border border-dark border-3 border-end-0 border-bottom-0 border-start-0 container col-sm-10">
+        <div class="container col-sm-10 mt-5 p-3 bg-secondary bg-opacity-10 border border-dark border-3 border-end-0 border-bottom-0 border-start-0 d-flex justify-content-between align-items-center">
             <span><i class="bi bi-check-circle-fill"></i> ${message}</span>
+            <a href="/products" class="btn primary-btn">Continue Shopping</a>
         </div>
         `
         refresh_display_cart()
