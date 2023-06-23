@@ -23,7 +23,7 @@ function render_products(products) {
         productEl.classList.add("position-relative")
         
         productEl.innerHTML = `
-            <img src="${element.image}" class="card-img-top" alt="image">
+            <img src="${element.image}" class="card-img-top" alt="image" role="button">
             <div class="card-body">
                 <h6 class="card-title">${element.title.length > 50 ? element.title.slice(0, 47) + '...' : element.title}</h6>
                 <p class="card-text mb-1"> 
@@ -51,6 +51,9 @@ function render_products(products) {
         productEl.querySelector(".quick_add_to_cart").addEventListener("click", () => {
             add_to_cart(element, 1)
             document.querySelector("#nav-cart-price").parentElement.click()
+        })
+        productEl.querySelector("img").addEventListener("click", () => {
+            productEl.querySelector(".quick_view").click()
         })
 
         featured_products_list.appendChild(productEl)

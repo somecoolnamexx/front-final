@@ -6,6 +6,10 @@
     padding-block: 2rem;
 }
 
+table tbody tr {
+    height: 8rem;
+}
+
 table th,
 table td {
     padding: 0.5rem 2rem !important;

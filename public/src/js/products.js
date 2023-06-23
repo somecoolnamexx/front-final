@@ -51,7 +51,7 @@ function render_products(products) {
         productEl.classList.add("position-relative")
         
         productEl.innerHTML = `
-            <img src="${element.image}" class="card-img-top" alt="image">
+            <img src="${element.image}" class="card-img-top" alt="image" role="button">
             <div class="card-body">
                 <a href="/products/?category=${get_category_id(element.category)}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
                     ${element.category}
@@ -85,6 +85,9 @@ function render_products(products) {
         })
         productEl.querySelector(".quick_add_to_cart").addEventListener("click", () => {
             add_to_cart(element, 1)
+        })
+        productEl.querySelector("img").addEventListener("click", () => {
+            productEl.querySelector(".quick_view").click()
         })
         
         const spaceEl = document.createElement("div")
