@@ -268,5 +268,5 @@ for (let i = 0; i < 3; i ++) {
 fetch_products((products) => {
     const product = products.filter((p) => p.id == product_id)[0]
     render_product(product)
-    render_related_products(products.filter((p) => p.category == product.category))
+    render_related_products(products.filter((p) => p.category == product.category).sort(() => 0.5 - Math.random()))
 })
