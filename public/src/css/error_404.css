@@ -1,0 +1,39 @@
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+#message h1 {
+    font-size: 10rem;
+    font-weight: 100;
+    color: var(--accent-color);
+    letter-spacing: 0.5rem;
+    text-align: center;
+}
+
+#message h3,
+#message h4 {
+    font-size: 2rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 0.5rem;
+    text-align: center;
+}
+
+#message h4 {
+    margin-bottom: 1.5rem;
+}
+
+#message p {
+    font-weight: 100;
+    text-align: center;
+}
+
+#message a {
+    text-decoration: none;
+    color: var(--accent-color) !important;
+    border-bottom: 0.15rem dotted var(--accent-color);
+}

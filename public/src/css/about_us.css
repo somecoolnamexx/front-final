@@ -2,7 +2,7 @@
     --banner-image-border-radius: 5rem;
 }
 #banner {
-    height: 50vh;
+    height: max(50vh, 300px);
     background: url("https://images.unsplash.com/photo-1606075920560-c43aa8659a3c?crop=bottom&fit=crop&h=400&w=1000");
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -56,6 +56,10 @@
 
 @media only screen and (max-width: 992px) {
     #banner {
-        height: 30vh;
+        height: 300px;
+    }
+    
+    #banner p {
+        font-size: 3rem;
     }
 }

@@ -223,7 +223,7 @@ navbar.innerHTML = `
                 </li>
             </ul>
         </div>
-        <div class="offcanvas-footer offcanvas-body flex-grow-0 d-lg-none"> 
+        <div class="offcanvas-footer offcanvas-body flex-grow-0 flex-shrink-0 d-lg-none"> 
             <div class="text-center text-muted">
                 © 2023 Davit Chinchaladze
             </div>
