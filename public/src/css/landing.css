@@ -2,7 +2,7 @@
     --banner-image-border-radius: 5rem;
 }
 #banner {
-    height: 85vh;
+    height: max(85vh, 450px);
     background: url("https://websitedemos.net/plant-store-02/wp-content/uploads/sites/410/2020/07/hero-bg.jpg");
     background-repeat: no-repeat;
     background-position: center center;
@@ -48,6 +48,6 @@
 
 @media only screen and (max-width: 992px) {
     #banner {
-        height: 50vh;
+        height: 450px;
     }
 }
