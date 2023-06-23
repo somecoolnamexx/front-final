@@ -166,7 +166,6 @@ function get_category_name(id) {
 
 
 function fetch_products(func) {
-    localStorage.removeItem("products")
     if (localStorage.getItem("products")) {
         func(JSON.parse(localStorage.getItem("products")))
     } else {
