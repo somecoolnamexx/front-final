@@ -75,8 +75,8 @@ function render_related_products(products) {
     related_products_list.innerHTML = ''
 
     products = products.filter((p) => p.id != product_id)
-    let s = Math.floor(Math.random() * (products.length - 4))
-    products = products.slice(s, s + 2 + Math.floor(Math.random() * 2))
+    let s = Math.floor(Math.random() * products.length) + 1
+    products = products.slice(0, s)
     products.forEach(element => {
         const productEl = document.createElement("div")
 
@@ -266,6 +266,7 @@ for (let i = 0; i < 3; i ++) {
 }
 
 fetch_products((products) => {
-    render_product(products.filter((p) => p.id == product_id)[0])
-    render_related_products(products)
+    const product = products.filter((p) => p.id == product_id)[0]
+    render_product(product)
+    render_related_products(products.filter((p) => p.category == product.category).sort(() => 0.5 - Math.random()))
 })
