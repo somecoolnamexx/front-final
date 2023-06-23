@@ -166,7 +166,6 @@ function get_category_name(id) {
 
 
 function fetch_products(func) {
-    localStorage.removeItem("products")
     if (localStorage.getItem("products")) {
         func(JSON.parse(localStorage.getItem("products")))
     } else {
@@ -180,6 +179,82 @@ function fetch_products(func) {
         ).finally(() => func(JSON.parse(localStorage.getItem("products"))))
     }
 }
+
+function get_quick_view_element(product) {
+    const modal = document.createElement("div")
+    modal.classList.add("modal", "fade")
+    modal.setAttribute("id", "quickView")
+    modal.setAttribute("tabindex", "-1")
+    modal.setAttribute("aria-labelledby", "quickViewLabel")
+    modal.setAttribute("aria-hidden", "true")
+    modal.innerHTML = `
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h1 class="modal-title fs-5" id="quickViewLabel">Quick View</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex flex-wrap">
+                    <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center">
+                        <img src="${product.image}" alt="image" class="img-fluid">
+                    </div>
+                    <div class="col-lg-1 my-3"></div>
+                    <div class="col-lg-6">
+                        <a href="/products/?category=${get_category_id(product.category)}" class="link-secondary link-underline link-underline-opacity-0 hover-color-active">
+                            ${product.category}
+                        </a>
+                        <h3 class="card-title mt-2">
+                        ${product.title}
+                        </h3>
+                        <p> 
+                            <i class="bi bi-star${product.rating.rate >= 1 ? '-fill' : product.rating.rate >= 0.5 ? '-half' : ''}"></i>
+                            <i class="bi bi-star${product.rating.rate >= 2 ? '-fill' : product.rating.rate >= 1.5 ? '-half' : ''}"></i>
+                            <i class="bi bi-star${product.rating.rate >= 3 ? '-fill' : product.rating.rate >= 2.5 ? '-half' : ''}"></i>
+                            <i class="bi bi-star${product.rating.rate >= 4 ? '-fill' : product.rating.rate >= 3.5 ? '-half' : ''}"></i>
+                            <i class="bi bi-star${product.rating.rate >= 5 ? '-fill' : product.rating.rate >= 4.5 ? '-half' : ''}"></i>
+                            ${product.rating.rate}
+                        </p>
+                        <p class="fs-3 fw-bold mt-3">
+                            ${product.price.toFixed(2)}
+                        </p>
+                        <p class="mt-3">
+                            ${product.description}
+                        </p>
+                        <form id="quick_view_add_to_cart_form" method="post" action="#">
+                            <div class="row mt-4">
+                                <div class="col-4 col-lg-3">
+                                    <input type="number" id="quick_view_quantity" class="form-control" value="1" min="1" max="99">
+                                </div>
+                                <button type="submit" class="fs-5 btn primary-btn col-5 ms-3" >Add To Cart</button>
+                            </div>
+                            <div id="quick_view_add_to_cart_form_error" class="mb-4 text-danger"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-top-0">
+                <button type="button" class="btn primary-btn px-4" data-bs-dismiss="modal">Close</button>
+                <a href="/product/?id=2" class="btn primary-btn px-4">See product</a>
+            </div>
+        </div>
+    </div>
+    `
+    modal.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault()
+        const quantity = document.querySelector("#quick_view_quantity").value 
+        if (!quantity || !parseInt(quantity) || parseInt(quantity) > 100 || parseInt(quantity) < 1) {
+            document.querySelector("#quick_view_add_to_cart_form_error").textContent = "Quantity must be between 1 and 99"
+        } else {
+            document.querySelector("#quick_view_add_to_cart_form_error").textContent = ""
+            add_to_cart(product, quantity)
+            document.querySelector("#quick_view_add_to_cart_form_error").classList.remove("d-none")
+            modal.querySelector(".btn-close").click()
+        }
+    })
+    return modal
+}
+
 
 
 navbar.classList.add("navbar")

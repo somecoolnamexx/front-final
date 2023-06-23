@@ -64,6 +64,35 @@ nav a {
     width: min(45rem, 90%) !important;
 }
 
+.quick_view,
+.quick_add_to_cart {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    
+    transition: color 200ms ease, background-color 200ms ease;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    right: 0.5rem;
+    top: 0.5rem;
+    line-height: 1rem;
+}
+.quick_add_to_cart {
+    margin-top: 2.5rem;
+}
+
+.quick_view:hover,
+.quick_add_to_cart:hover {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+}
+
+#modal img{
+    max-height: 30rem;
+    object-fit: contain;
+    justify-self: center;
+    align-self: center;
+}
+
 .required::after {
     content: " *";
     color: red;
