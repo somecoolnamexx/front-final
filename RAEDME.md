@@ -8,10 +8,13 @@
     <img width="40" src="https://raw.githubusercontent.com/keikaavousi/fake-store-api/master/public/icons/logo.png" alt="FakeStoreAPI" title="FakeStoreAPI"/>
 </div>
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5d9bf098-2087-4788-8a50-868acaf8f8e4/deploy-status)](https://front-final-datotoda.netlify.app/)
+
 This is a final project of Front-end course. an e-commerce website built using HTML, CSS, JavaScript, and [Bootstrap](https://github.com/twbs/bootstrap). The website integrates the [Fake Store API](https://github.com/keikaavousi/fake-store-api) to fetch and display products for users to browse, search, and purchase.
 
 ## Live Demo
 - [https://front-final-datotoda.web.app](https://front-final-datotoda.web.app/)
+- [https://front-final-datotoda.netlify.app](https://front-final-datotoda.netlify.app/)
 
 ## Endpoints
 
