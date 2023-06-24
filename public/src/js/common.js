@@ -216,7 +216,7 @@ function get_quick_view_element(product) {
                             ${product.rating.rate}
                         </p>
                         <p class="fs-3 fw-bold mt-3">
-                            ${product.price.toFixed(2)}
+                            $${product.price.toFixed(2)}
                         </p>
                         <p class="mt-3">
                             ${product.description}

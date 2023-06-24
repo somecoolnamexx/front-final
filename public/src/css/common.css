@@ -21,6 +21,10 @@
     height: 5rem;
 }
 
+* {
+    font-family: 'Comme', math;
+}
+
 body {
     background-color: var(--primary-color);
 }
