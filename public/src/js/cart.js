@@ -15,12 +15,12 @@ function refresh_cart_list() {
             const table_tr = document.createElement("tr")
             const subtotal = item.quantity * item.product.price
             table_tr.innerHTML = `
-            <td scope="row" class="text-center text-secondary"><span class="remove fs-5" role="button"><i class="bi bi-x-circle"></i></span></td>
+            <td scope="row" class="text-right text-md-center text-secondary"><span class="remove fs-5" role="button"><i class="bi bi-x-circle"></i></span></td>
             <td><img src="${item.product.image}" alt="image" class="img-fluid"></td>
-            <td><a href="/product/?id=${item.product.id}" class="link-secondary link-underline-opacity-0 hover-color-active">${item.product.title}</a></td>
-            <td class="text-secondary">$${item.product.price.toFixed(2)}</td>
-            <td class="text-secondary"><input type="number" class="form-control" id="quantity_${item.id}" value="${item.quantity}" min="1" max="99"></td>
-            <td class="text-secondary">$${subtotal.toFixed(2)}</td>
+            <td data-title="Product:" class="text-secondary"><a href="/product/?id=${item.product.id}" class="link-secondary link-underline-opacity-0 hover-color-active">${item.product.title}</a></td>
+            <td data-title="Price:" class="text-secondary">$${item.product.price.toFixed(2)}</td>
+            <td data-title="Quantity:" class="text-secondary"><input type="number" class="form-control" id="quantity_${item.id}" value="${item.quantity}" min="1" max="99"></td>
+            <td data-title="Subtotal:" class="text-secondary">$${subtotal.toFixed(2)}</td>
             `
             subtotals += subtotal
             table_tr.querySelector(".remove").addEventListener("click", (e) => {
