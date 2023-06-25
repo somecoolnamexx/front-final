@@ -18,3 +18,43 @@ table td {
 table img {
     max-width: 5rem !important;
 }
+input[type="number"] {
+    display: inline-block;
+    width: auto;
+}
+
+@media only screen and (max-width: 991px) {
+    table th,
+    table td {
+        padding: 0.5rem 1rem !important;
+    }
+}
+
+
+
+@media only screen and (max-width: 767px) {
+    .table-responsive table td::before {
+        content: attr(data-title);
+        float: left;
+        font-weight: 500;
+    }
+    .table-responsive table thead {
+        display: none;
+    }
+    
+    .table-responsive table td {
+        display: block;
+        text-align: right !important;
+    }
+    .table-responsive table td[scope="row"] {
+        background-color: rgba(var(--bs-secondary-rgb), 0.1);
+    }
+    .table-responsive table td:has(img) {
+        text-align: center !important;
+    }
+    .table-responsive table td img {
+        max-width: 8rem !important;
+        max-height: 8rem !important;
+    }
+}
+
