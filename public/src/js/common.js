@@ -205,7 +205,7 @@ function get_quick_view_element(product) {
                             ${product.category}
                         </a>
                         <h3 class="card-title mt-2">
-                        ${product.title}
+                            ${product.title}
                         </h3>
                         <p> 
                             <i class="bi bi-star${product.rating.rate >= 1 ? '-fill' : product.rating.rate >= 0.5 ? '-half' : ''}"></i>
@@ -235,7 +235,7 @@ function get_quick_view_element(product) {
             </div>
             <div class="modal-footer border-top-0">
                 <button type="button" class="btn primary-btn px-4" data-bs-dismiss="modal">Close</button>
-                <a href="/product/?id=2" class="btn primary-btn px-4">See product</a>
+                <a href="/product/?id=${product.id}" class="btn primary-btn px-4">See product</a>
             </div>
         </div>
     </div>
