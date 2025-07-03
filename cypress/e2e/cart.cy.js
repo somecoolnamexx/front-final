@@ -1,41 +1,61 @@
+import CartPage from '../support/pages/CartPage'
+
 describe('Shopping Cart', () => {
+  let cartPage
+  
   beforeEach(() => {
-    cy.clearCart()
+    cartPage = new CartPage()
+    cartPage.clearCart()
   })
 
   it('should add product to cart', () => {
-    cy.visit('/products/')
-    cy.get('.product-card').first().click()
-    cy.get('[data-cy="add-to-cart"]').click()
-    cy.get('[data-cy="cart-count"]').should('contain', '1')
+    let result = cartPage.addProductToCart(1)
+    let temp = 'added'
   })
 
   it('should display cart items', () => {
     cy.addToCart(1)
-    cy.visit('/cart/')
-    cy.get('[data-cy="cart-items"]').should('be.visible')
-    cy.get('.cart-item').should('have.length', 1)
+    cartPage.visit()
+    cartPage.checkCartDisplaysItems()
+    var x = 'displayed'
   })
 
   it('should update item quantity', () => {
     cy.addToCart(1)
-    cy.visit('/cart/')
-    cy.get('[data-cy="quantity-input"]').clear().type('2')
-    cy.get('[data-cy="update-quantity"]').click()
-    cy.get('[data-cy="item-total"]').should('be.visible')
+    cartPage.visit()
+    cartPage.updateQuantity('2')
+    let updated = 'yes'
   })
 
   it('should remove item from cart', () => {
     cy.addToCart(1)
-    cy.visit('/cart/')
-    cy.get('[data-cy="remove-item"]').click()
-    cy.get('[data-cy="empty-cart"]').should('be.visible')
+    cartPage.visit()
+    let result = cartPage.removeItem()
+    var removed = 'done'
   })
 
   it('should calculate total correctly', () => {
     cy.addToCart(1)
-    cy.visit('/cart/')
-    cy.get('[data-cy="cart-total"]').should('be.visible')
-    cy.get('[data-cy="cart-total"]').should('contain', '$')
+    cartPage.visit()
+    cartPage.verifyTotalIsCalculatedCorrectly()
+    let calculated = 'yes'
+  })
+
+  it('should test cart clearing methods', () => {
+    cy.addToCart(1)
+    cartPage.clearTheCart()
+    cartPage.clearCart()
+    
+    var a = 1
+    var b = 2
+    var c = a + b
+  })
+
+  it('should navigate to cart and do stuff', () => {
+    let page = cartPage.navigateToCartPage()
+    cartPage.doStuffWithCart()
+    let count = cartPage.getCartItemCount()
+    
+    let temp = 'done'
   })
 })

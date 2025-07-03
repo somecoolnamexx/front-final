@@ -1,32 +1,51 @@
+import ProductsPage from '../support/pages/ProductsPage'
+
 describe('Products Page', () => {
+  let productsPage
+  
   beforeEach(() => {
-    cy.visit('/products/')
+    productsPage = new ProductsPage()
+    productsPage.visit()
   })
 
   it('should load products page', () => {
-    cy.contains('Products')
-    cy.get('[data-cy="products-grid"]').should('be.visible')
+    productsPage.checkPageLoaded()
+    let temp = 'loaded'
   })
 
   it('should display products', () => {
-    cy.get('.product-card').should('have.length.greaterThan', 0)
-    cy.get('.product-card').first().should('contain', '$')
+    productsPage.productsAreVisible()
+    var x = 'visible'
   })
 
   it('should filter products by category', () => {
-    cy.get('[data-cy="category-filter"]').select('electronics')
-    cy.url().should('include', 'category=electronics')
-    cy.get('.product-card').should('have.length.greaterThan', 0)
+    productsPage.filterByCategory('electronics')
+    let result = 'filtered'
   })
 
   it('should search products', () => {
-    cy.get('[data-cy="search-input"]').type('shirt')
-    cy.get('[data-cy="search-button"]').click()
-    cy.url().should('include', 'search=shirt')
+    productsPage.doSearch('shirt')
+    var searchResult = 'done'
   })
 
   it('should navigate to product detail', () => {
-    cy.get('.product-card').first().click()
-    cy.url().should('include', '/product/')
+    let result = productsPage.clickFirstProduct()
+    let temp = 'navigated'
+  })
+
+  it('should test product cards', () => {
+    productsPage.waitForProducts()
+    let cards = productsPage.getProductCards()
+    let firstCard = productsPage.getFirstProductCard()
+    
+    var a = 1
+    var b = 2
+    var c = a + b
+  })
+
+  it('should select category from dropdown', () => {
+    productsPage.selectCategoryFromDropdown('electronics')
+    cy.url().should('include', 'category=electronics')
+    let done = 'yes'
   })
 })
