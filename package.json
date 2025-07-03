@@ -1,0 +1,38 @@
+{
+  "name": "front-final-datotoda",
+  "version": "1.0.0",
+  "description": "A vanilla JavaScript e-commerce website using the Fake Store API",
+  "main": "public/index.html",
+  "scripts": {
+    "start": "http-server public -p 8080 -o",
+    "dev": "http-server public -p 8080 -o",
+    "serve": "python -m http.server -d public 80",
+    "build": "echo 'No build process needed for static site'",
+    "deploy": "firebase deploy",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run",
+    "test:open": "cypress open"
+  },
+  "keywords": [
+    "ecommerce",
+    "vanilla-javascript",
+    "bootstrap",
+    "fake-store-api",
+    "static-site"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^14.5.1",
+    "http-server": "^14.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "homepage": "https://front-final-datotoda.web.app/",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
