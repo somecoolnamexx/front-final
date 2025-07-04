@@ -9,10 +9,11 @@
     "serve": "python -m http.server -d public 80",
     "build": "echo 'No build process needed for static site'",
     "deploy": "firebase deploy",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "test": "cypress run",
-    "test:open": "cypress open"
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report"
   },
   "keywords": [
     "ecommerce",
@@ -24,7 +25,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^14.5.1",
+    "@playwright/test": "^1.53.2",
     "http-server": "^14.1.1"
   },
   "repository": {
