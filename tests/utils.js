@@ -3,6 +3,7 @@ const { expect } = require('@playwright/test');
 
 class Utils {
   static async clearCart(page) {
+    await page.goto('/');
     await page.evaluate(() => {
       window.localStorage.removeItem('cart');
     });
